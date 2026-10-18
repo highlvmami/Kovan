@@ -1,0 +1,30 @@
+@* Etkinlik kartı. Ana sayfa ve Events listesinde tekrar kullanılır.
+   Kapak görseli yoksa CoverUrl kategoriye göre varsayılan SVG'yi gösterir. *@
+@model EventCardViewModel
+
+<a class="kv-card kv-event-card" asp-area="Events" asp-controller="Events" asp-action="Details" asp-route-id="@Model.Id">
+    <div class="kv-event-cover" style="background-image:url('@Model.CoverUrl')">
+        <div class="kv-date-hex">
+            <strong>@Model.Day</strong>
+            <span>@Model.MonthShort</span>
+        </div>
+        <span class="kv-badge kv-badge-dark"><i class="bi @Model.CategoryIcon"></i> @Model.CategoryText</span>
+    </div>
+    <div class="kv-card-body">
+        <h3 class="kv-card-title">@Model.Title</h3>
+        <div class="kv-card-meta flex-column align-items-start gap-1">
+            <span><i class="bi bi-clock"></i> @Model.DateText</span>
+            <span><i class="bi bi-geo-alt"></i> @Model.Location</span>
+            @if (!string.IsNullOrEmpty(Model.ClubName))
+            {
+                <span><i class="bi bi-people"></i> @Model.ClubName</span>
+            }
+        </div>
+        <div class="kv-capacity">
+            <div class="kv-progress"><span style="width:@(Model.FillPercent)%"></span></div>
+            <small class="@(Model.IsFull ? "text-danger fw-semibold" : "kv-muted")">
+                @(Model.IsFull ? "Kontenjan doldu · bekleme listesi" : $"{Model.Registered}/{Model.Capacity} kişi")
+            </small>
+        </div>
+    </div>
+</a>

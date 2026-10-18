@@ -1,0 +1,11 @@
+@* Liste boş olduğunda gösterilen tatlı "boş petek" kutusu *@
+@model EmptyStateViewModel
+
+<div class="kv-empty">
+    <span class="kv-hex-icon kv-hex-icon-lg"><i class="bi @Model.Icon"></i></span>
+    <h3>@Model.Title</h3>
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+        <p>@Model.Message</p>
+    }
+</div>

@@ -1,0 +1,20 @@
+@* Yakalanmayan hatalar için temalı hata sayfası *@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Hata";
+}
+
+<section class="kv-section">
+    <div class="container">
+        <div class="kv-error">
+            <div class="kv-error-code">500</div>
+            <h1>@Model.Title</h1>
+            <p>@Model.Message</p>
+            @if (Model.ShowRequestId)
+            {
+                <p class="small kv-muted">İstek kimliği: <code>@Model.RequestId</code></p>
+            }
+            <a class="btn kv-btn-primary" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house"></i> Kovana dön</a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,105 @@
+@*
+    ANA SAYFA
+    - Karşılama (hero) bölümü
+    - Modüller petek (altıgen) kartlar halinde → @foreach ile Model.Modules'tan üretilir
+    - Son ilanlar ve yaklaşan etkinlikler → servislerden gelen örnek veri (dinamik)
+*@
+@model HomeIndexViewModel
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/modules/home.css" asp-append-version="true" />
+}
+
+<!-- ================= HERO ================= -->
+<section class="kv-hero">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-5">
+                <span class="kv-eyebrow">Merhaba @Model.UserFirstName 👋</span>
+                <h1 class="kv-hero-title">Kampüs hayatın <span>tek bir kovanda.</span></h1>
+                <p class="kv-hero-text">
+                    Ders notunu ödünç ver, etkinliğe kaydol, konu odalarında sohbet et,
+                    Turgutlu–İzmir yolculuğunu paylaş. Her modül ayrı bir petek gözü,
+                    hepsi aynı güven puanını paylaşıyor.
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                    <a class="btn kv-btn-primary" asp-area="Market" asp-controller="Listings" asp-action="Index"><i class="bi bi-shop"></i> Market'e göz at</a>
+                    <a class="btn kv-btn-outline" asp-area="Events" asp-controller="Events" asp-action="Calendar"><i class="bi bi-calendar3"></i> Etkinlik takvimi</a>
+                </div>
+
+                @if (Model.Stats != null)
+                {
+                    <div class="kv-hero-stats">
+                        <div><strong>@Model.Stats.UserCount</strong><span>arı</span></div>
+                        <div><strong>@Model.Stats.ActiveListingCount</strong><span>ilan</span></div>
+                        <div><strong>@Model.Stats.UpcomingEventCount</strong><span>etkinlik</span></div>
+                    </div>
+                }
+            </div>
+
+            <!-- Petek ızgarası: her modül bir altıgen -->
+            <div class="col-lg-7">
+                <div class="kv-honeycomb">
+                    @foreach (var m in Model.Modules)
+                    {
+                        <a class="kv-hex @m.ColorClass" asp-area="@m.Area" asp-controller="@m.Controller" asp-action="Index">
+                            <div class="kv-hex-inner">
+                                <i class="bi @m.Icon"></i>
+                                <strong>@m.Name</strong>
+                                <span>@m.Description</span>
+                                @if (m.Badge != null)
+                                {
+                                    <em>@m.Badge</em>
+                                }
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= SON İLANLAR ================= -->
+<section class="kv-section">
+    <div class="container">
+        <div class="kv-section-head">
+            <div>
+                <span class="kv-eyebrow">Market</span>
+                <h2>Son eklenen ilanlar</h2>
+            </div>
+            <a class="kv-link" asp-area="Market" asp-controller="Listings" asp-action="Index">Tümünü gör <i class="bi bi-arrow-right"></i></a>
+        </div>
+        <div class="row g-4">
+            @foreach (var listing in Model.LatestListings)
+            {
+                <div class="col-sm-6 col-lg-3">
+                    <partial name="_ListingCard" model="listing" />
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- ================= YAKLAŞAN ETKİNLİKLER ================= -->
+<section class="kv-section kv-section-alt">
+    <div class="container">
+        <div class="kv-section-head">
+            <div>
+                <span class="kv-eyebrow">Etkinlikler</span>
+                <h2>Yaklaşan etkinlikler</h2>
+            </div>
+            <a class="kv-link" asp-area="Events" asp-controller="Events" asp-action="Index">Tümünü gör <i class="bi bi-arrow-right"></i></a>
+        </div>
+        <div class="row g-4">
+            @foreach (var ev in Model.UpcomingEvents)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <partial name="_EventCard" model="ev" />
+                </div>
+            }
+        </div>
+    </div>
+</section>

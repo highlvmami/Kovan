@@ -1,0 +1,71 @@
+@* EVENTS – ETKİNLİK DETAYI: kontenjan durumu, organizatör, kayıt butonu *@
+@model EventDetailsViewModel
+@{
+    ViewData["Title"] = Model.Card.Title;
+}
+
+<section class="kv-event-hero" style="background-image:url('@Model.Card.CoverUrl')">
+    <div class="container">
+        <span class="kv-badge kv-badge-dark"><i class="bi @Model.Card.CategoryIcon"></i> @Model.Card.CategoryText</span>
+        <h1>@Model.Card.Title</h1>
+        @if (!string.IsNullOrEmpty(Model.Card.ClubName))
+        {
+            <p><i class="bi bi-people"></i> @Model.Card.ClubName</p>
+        }
+    </div>
+</section>
+
+<section class="kv-section">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="kv-panel">
+                    <h2 class="h5">Etkinlik hakkında</h2>
+                    <p>@Model.Description</p>
+                    <div class="kv-spec-grid">
+                        <div><small>Tarih</small><strong>@Model.Card.DateText</strong></div>
+                        <div><small>Saat</small><strong>@Model.TimeRange</strong></div>
+                        <div><small>Yer</small><strong>@Model.Card.Location</strong></div>
+                        <div><small>Organizatör</small><strong>@Model.OrganizerName</strong></div>
+                    </div>
+                </div>
+                <div class="kv-panel mt-4">
+                    <h2 class="h5"><i class="bi bi-megaphone"></i> Duyurular</h2>
+                    <p class="kv-muted mb-0">Organizatör duyuruları Faz 3'te bu alanda listelenecek.</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="kv-panel kv-action-box">
+                    <div class="kv-date-hex kv-date-hex-lg">
+                        <strong>@Model.Card.Day</strong>
+                        <span>@Model.Card.MonthShort</span>
+                    </div>
+                    <h2 class="h5 mt-3">Kontenjan</h2>
+                    <div class="kv-progress kv-progress-lg"><span style="width:@(Model.Card.FillPercent)%"></span></div>
+                    <p class="small kv-muted mt-2">
+                        @Model.Card.Registered / @Model.Card.Capacity kişi kayıtlı
+                        @if (Model.WaitlistCount > 0)
+                        {
+                            <text> · @Model.WaitlistCount kişi bekleme listesinde</text>
+                        }
+                    </p>
+
+                    @if (Model.Card.IsFull)
+                    {
+                        <button class="btn kv-btn-outline w-100" disabled><i class="bi bi-hourglass"></i> Bekleme Listesine Katıl (Faz 3)</button>
+                    }
+                    else
+                    {
+                        <p class="fw-semibold">Son @Model.RemainingSeats yer!</p>
+                        <button class="btn kv-btn-primary w-100" disabled><i class="bi bi-check2-circle"></i> Katıl (Faz 3)</button>
+                    }
+                    <hr />
+                    <div class="kv-owner">
+                        <span class="kv-avatar">@Model.OrganizerInitials</span>
+                        <span><strong>@Model.OrganizerName</strong><small class="d-block kv-muted">Organizatör</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

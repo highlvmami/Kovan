@@ -1,0 +1,7 @@
+@* Admin Area'sı: ortak _Layout kullanılır.
+   ViewData["Module"] sayesinde layout, bu modülün CSS dosyasını
+   (wwwroot/css/modules/admin.css) otomatik yükler ve menüde bu modülü aktif gösterir. *@
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    ViewData["Module"] = "admin";
+}

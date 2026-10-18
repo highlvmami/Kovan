@@ -1,0 +1,103 @@
+@* MARKET – İLAN DETAYI: türüne göre (ödünç / satış / artırma) farklı aksiyon kutusu gösterilir *@
+@model ListingDetailsViewModel
+@{
+    ViewData["Title"] = Model.Card.Title;
+}
+
+<section class="kv-section">
+    <div class="container">
+        <nav class="kv-breadcrumb mb-3">
+            <a asp-action="Index">Market</a> <i class="bi bi-chevron-right"></i>
+            <a asp-action="Index" asp-route-type="@Model.Type">@Model.Card.TypeText</a> <i class="bi bi-chevron-right"></i>
+            <span>@Model.Card.Title</span>
+        </nav>
+
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="kv-detail-visual">
+                    <i class="bi @Model.Card.CategoryIcon"></i>
+                    <span class="kv-badge @Model.Card.TypeBadgeClass"><i class="bi @Model.Card.TypeIcon"></i> @Model.Card.TypeText</span>
+                </div>
+                <div class="kv-panel mt-4">
+                    <h2 class="h5">Açıklama</h2>
+                    <p>@Model.Description</p>
+                    <div class="kv-spec-grid">
+                        <div><small>Kategori</small><strong>@Model.Card.CategoryText</strong></div>
+                        <div><small>Durum</small><strong>@Model.Condition</strong></div>
+                        @if (!string.IsNullOrEmpty(Model.Card.CourseCode))
+                        {
+                            <div><small>Ders kodu</small><strong>@Model.Card.CourseCode</strong></div>
+                        }
+                        <div><small>Yayınlanma</small><strong>@Model.Card.CreatedText</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="kv-panel kv-action-box">
+                    <h1 class="h3">@Model.Card.Title</h1>
+
+                    @* İlan türüne göre farklı aksiyon alanı: Razor'da switch kullanımı *@
+                    @switch (Model.Type)
+                    {
+                        case ListingType.Auction:
+                            <div class="kv-auction">
+                                <small>Güncel teklif</small>
+                                <strong class="kv-price-lg">@Model.Card.PriceText.Replace("Teklif: ", "")</strong>
+                                <div class="d-flex justify-content-between small kv-muted">
+                                    <span>Başlangıç: @Model.StartPrice?.ToMoney()</span>
+                                    <span>@Model.BidCount teklif</span>
+                                </div>
+                                <div class="kv-timer-box"><i class="bi bi-hourglass-split"></i> Kalan süre: <strong>@Model.Card.AuctionRemaining</strong></div>
+                                <small class="kv-muted d-block mb-3">Bitiş: @Model.AuctionEndsText</small>
+                            </div>
+                            <button class="btn kv-btn-primary w-100" disabled><i class="bi bi-hammer"></i> Teklif Ver (Faz 4 · canlı)</button>
+                            break;
+
+                        case ListingType.Lend:
+                            <p class="kv-price-lg mb-1">Ücretsiz ödünç</p>
+                            <p class="kv-muted small">Tarih aralığı seç, ilan sahibi onaylasın.</p>
+                            <div class="row g-2 mb-3">
+                                <div class="col-6"><label class="form-label small">Başlangıç</label><input type="date" class="form-control" /></div>
+                                <div class="col-6"><label class="form-label small">Bitiş</label><input type="date" class="form-control" /></div>
+                            </div>
+                            <ol class="kv-steps">
+                                <li class="active">Beklemede</li>
+                                <li>Onaylandı</li>
+                                <li>Teslim Edildi</li>
+                                <li>İade Edildi</li>
+                            </ol>
+                            <button class="btn kv-btn-primary w-100" disabled><i class="bi bi-calendar-check"></i> Ödünç İste (Faz 3)</button>
+                            break;
+
+                        default:
+                            <p class="kv-price-lg">@Model.Card.PriceText</p>
+                            <button class="btn kv-btn-primary w-100" disabled><i class="bi bi-chat-dots"></i> Satıcıya Yaz (Faz 3)</button>
+                            break;
+                    }
+
+                    <hr />
+                    <a class="kv-owner" asp-area="" asp-controller="Profile" asp-action="Index" asp-route-id="@Model.OwnerId">
+                        <span class="kv-avatar">@Model.OwnerInitials</span>
+                        <span>
+                            <strong>@Model.Card.OwnerName</strong>
+                            <small class="d-block kv-muted">@Model.OwnerDepartment</small>
+                        </span>
+                        <span class="kv-trust ms-auto"><i class="bi bi-star-fill"></i> @Model.Card.OwnerTrust.ToString("0.0")</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        @if (Model.Similar.Any())
+        {
+            <h2 class="h4 mt-5 mb-3">Benzer ilanlar</h2>
+            <div class="row g-4">
+                @foreach (var s in Model.Similar)
+                {
+                    <div class="col-sm-6 col-lg-4"><partial name="_ListingCard" model="s" /></div>
+                }
+            </div>
+        }
+    </div>
+</section>

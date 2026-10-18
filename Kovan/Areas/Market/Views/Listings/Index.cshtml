@@ -1,0 +1,93 @@
+@*
+    MARKET – İLAN LİSTESİ
+    Dinamik alanlar:
+      - Tür sekmeleri ve kategori listesi Enum değerlerinden @foreach ile üretilir
+      - Ders kodu açılır listesi servisten gelir
+      - İlan kartları Model.Listings üzerinden @foreach ile basılır
+    Filtreler GET formu ile query string'e yazılır (?type=Sale&courseCode=YZM 3215)
+*@
+@model ListingIndexViewModel
+@{
+    ViewData["Title"] = "Market";
+}
+
+<partial name="_PageHeader" model='new PageHeaderViewModel { Title = "Ödünç & Satış Pazarı", Subtitle = "Ders kaynakları, elektronik, ekipman… Kampüs içinde güvenle paylaş.", Icon = "bi-shop", ModuleName = "Market" }' />
+
+<section class="kv-section">
+    <div class="container">
+
+        <!-- Tür sekmeleri -->
+        <div class="kv-tabs mb-4">
+            <a class="kv-tab @(Model.Type == null ? "active" : "")" asp-action="Index" asp-route-category="@Model.Category" asp-route-courseCode="@Model.CourseCode">Tümü</a>
+            @foreach (var t in Enum.GetValues<ListingType>())
+            {
+                <a class="kv-tab @(Model.Type == t ? "active" : "")" asp-action="Index" asp-route-type="@t" asp-route-category="@Model.Category" asp-route-courseCode="@Model.CourseCode">
+                    <i class="bi @t.ToIcon()"></i> @t.ToDisplay()
+                </a>
+            }
+        </div>
+
+        <div class="row g-4">
+            <!-- Sol: filtre paneli -->
+            <aside class="col-lg-3">
+                <form method="get" asp-action="Index" class="kv-panel kv-filter">
+                    <input type="hidden" name="type" value="@Model.Type" />
+
+                    <label class="form-label" for="search">Ara</label>
+                    <div class="kv-input-icon mb-3">
+                        <i class="bi bi-search"></i>
+                        <input id="search" name="search" value="@Model.Search" class="form-control" placeholder="Kitap, not, cihaz..." />
+                    </div>
+
+                    <label class="form-label">Kategori</label>
+                    <div class="kv-radio-list mb-3">
+                        <label><input type="radio" name="category" value="" checked="@(Model.Category == null)" data-autosubmit /> Tümü</label>
+                        @foreach (var c in Enum.GetValues<ListingCategory>())
+                        {
+                            <label><input type="radio" name="category" value="@c" checked="@(Model.Category == c)" data-autosubmit /> <i class="bi @c.ToIcon()"></i> @c.ToDisplay()</label>
+                        }
+                    </div>
+
+                    <label class="form-label" for="courseCode">Ders kodu</label>
+                    <select id="courseCode" name="courseCode" class="form-select mb-3" data-autosubmit>
+                        <option value="">Tüm dersler</option>
+                        @foreach (var code in Model.CourseCodes)
+                        {
+                            <option value="@code" selected="@(code == Model.CourseCode)">@code</option>
+                        }
+                    </select>
+
+                    <button type="submit" class="btn kv-btn-primary w-100"><i class="bi bi-funnel"></i> Filtrele</button>
+                    @if (Model.HasFilter)
+                    {
+                        <a class="btn btn-link kv-link w-100 mt-1" asp-action="Index">Filtreleri temizle</a>
+                    }
+                </form>
+            </aside>
+
+            <!-- Sağ: ilanlar -->
+            <div class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <p class="mb-0 kv-muted"><strong>@Model.Listings.Count</strong> ilan bulundu</p>
+                    <button class="btn kv-btn-primary btn-sm" disabled title="Faz 3'te aktif olacak"><i class="bi bi-plus-lg"></i> İlan Ver</button>
+                </div>
+
+                @if (Model.Listings.Any())
+                {
+                    <div class="row g-4">
+                        @foreach (var listing in Model.Listings)
+                        {
+                            <div class="col-sm-6 col-xl-4">
+                                <partial name="_ListingCard" model="listing" />
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <partial name="_EmptyState" model='new EmptyStateViewModel { Icon = "bi-search", Title = "Bu filtreye uygun ilan yok", Message = "Filtreleri değiştirmeyi ya da temizlemeyi dene." }' />
+                }
+            </div>
+        </div>
+    </div>
+</section>

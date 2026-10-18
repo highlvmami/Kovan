@@ -1,0 +1,37 @@
+/* ==========================================================================
+   ACCOUNT – Giriş / Kayıt sayfaları
+   ========================================================================== */
+
+.kv-auth { padding: 3rem 0; background: var(--kv-cream) var(--kv-hex-pattern); }
+
+.kv-auth-card {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    max-width: 960px;
+    margin: 0 auto;
+    background: var(--kv-white);
+    border-radius: 24px;
+    box-shadow: var(--kv-shadow-hover);
+    overflow: hidden;
+}
+.kv-auth-side {
+    background: var(--kv-dark) var(--kv-hex-pattern);
+    color: rgba(255, 255, 255, .8);
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.kv-auth-side h2 { color: var(--kv-honey); margin: 1.2rem 0 .6rem; }
+.kv-check-list-light li { color: #fff; }
+
+.kv-auth-form { padding: 3rem 2.5rem; }
+.kv-auth-form h1 { font-size: 1.8rem; margin-bottom: 1.5rem; }
+
+@media (max-width: 767.98px) {
+    .kv-auth { padding: 1.5rem 0; }
+    .kv-auth-card { grid-template-columns: 1fr; }
+    .kv-auth-side { padding: 2rem 1.5rem; }
+    .kv-auth-side ul { display: none; }
+    .kv-auth-form { padding: 2rem 1.5rem; }
+}

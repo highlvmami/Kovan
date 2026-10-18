@@ -1,0 +1,28 @@
+@* Market ilan kartı. Ana sayfa, Market listesi ve Profil sayfasında tekrar kullanılır. *@
+@model ListingCardViewModel
+
+<a class="kv-card kv-listing-card" asp-area="Market" asp-controller="Listings" asp-action="Details" asp-route-id="@Model.Id">
+    <div class="kv-listing-thumb">
+        <i class="bi @Model.CategoryIcon"></i>
+        <span class="kv-badge @Model.TypeBadgeClass"><i class="bi @Model.TypeIcon"></i> @Model.TypeText</span>
+        @if (Model.AuctionRemaining != null)
+        {
+            <span class="kv-timer"><i class="bi bi-clock"></i> @Model.AuctionRemaining</span>
+        }
+    </div>
+    <div class="kv-card-body">
+        <div class="kv-card-meta">
+            <span><i class="bi @Model.CategoryIcon"></i> @Model.CategoryText</span>
+            @if (!string.IsNullOrEmpty(Model.CourseCode))
+            {
+                <span class="kv-chip">@Model.CourseCode</span>
+            }
+        </div>
+        <h3 class="kv-card-title">@Model.Title</h3>
+        <div class="kv-card-footer">
+            <strong class="kv-price">@Model.PriceText</strong>
+            <span class="kv-trust" title="Güven puanı"><i class="bi bi-star-fill"></i> @Model.OwnerTrust.ToString("0.0")</span>
+        </div>
+        <small class="kv-muted">@Model.OwnerName · @Model.CreatedText</small>
+    </div>
+</a>

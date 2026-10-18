@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!--
+    KOVAN 🐝 – Modüler Kampüs Platformu
+    Faz 1: Henüz harici NuGet paketi yok.
+    Faz 2'de buraya EF Core (Sqlite), Identity ve Design paketleri eklenecek.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Kovan</RootNamespace>
+  </PropertyGroup>
+
+</Project>

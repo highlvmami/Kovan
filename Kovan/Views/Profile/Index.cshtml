@@ -1,0 +1,76 @@
+@* PROFİL: kullanıcı kartı, Güven Puanı ve kullanıcının ilanları *@
+@model ProfileViewModel
+@{
+    ViewData["Title"] = Model.FullName;
+    var isOwn = ViewData["IsOwnProfile"] as bool? ?? false;
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/modules/profile.css" asp-append-version="true" />
+}
+
+<section class="kv-profile-cover"></section>
+
+<section class="kv-section pt-0">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Sol: kullanıcı kartı -->
+            <div class="col-lg-4">
+                <div class="kv-panel kv-profile-card">
+                    <span class="kv-avatar kv-avatar-xl">@Model.Initials</span>
+                    <h1 class="h3 mt-3 mb-1">@Model.FullName</h1>
+                    <p class="kv-muted mb-2">@Model.Department · @(Model.Grade). sınıf</p>
+                    <span class="kv-chip">@Model.Role</span>
+
+                    @* Güven puanı: yıldızlar for döngüsü ile çiziliyor *@
+                    <div class="kv-trust-big">
+                        <strong>@Model.TrustScore.ToString("0.0")</strong>
+                        <div class="kv-stars">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <i class="bi @(i <= Model.FullStars ? "bi-star-fill" : "bi-star")"></i>
+                            }
+                        </div>
+                        <small class="kv-muted">@Model.RatingCount değerlendirme · Güven Puanı</small>
+                    </div>
+
+                    @if (isOwn)
+                    {
+                        <a class="btn kv-btn-outline w-100" asp-action="Edit"><i class="bi bi-pencil"></i> Profili Düzenle</a>
+                    }
+                </div>
+            </div>
+
+            <!-- Sağ: modül bazlı puanlar + ilanlar -->
+            <div class="col-lg-8">
+                <div class="kv-panel mb-4">
+                    <h2 class="h5 mb-3">Modüllere göre güven puanı</h2>
+                    @foreach (var t in Model.TrustBreakdown)
+                    {
+                        <div class="kv-trust-row">
+                            <span><i class="bi @t.Icon"></i> @t.Module</span>
+                            <div class="kv-progress"><span style="width:@((int)(t.Score * 20))%"></span></div>
+                            <strong>@t.Score.ToString("0.0")</strong>
+                        </div>
+                    }
+                </div>
+
+                <h2 class="h5 mb-3">İlanları (@Model.MyListings.Count)</h2>
+                @if (Model.MyListings.Any())
+                {
+                    <div class="row g-4">
+                        @foreach (var l in Model.MyListings)
+                        {
+                            <div class="col-sm-6">
+                                <partial name="_ListingCard" model="l" />
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <partial name="_EmptyState" model='new EmptyStateViewModel { Icon = "bi-shop", Title = "Henüz ilan yok", Message = "Market modülünden ilk ilanını verebilirsin." }' />
+                }
+            </div>
+        </div>
+    </div>
+</section>

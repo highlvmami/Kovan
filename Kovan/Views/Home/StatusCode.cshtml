@@ -1,0 +1,16 @@
+@* 404 vb. durum kodları için temalı sayfa (düz beyaz hata sayfası yerine) *@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<section class="kv-section">
+    <div class="container">
+        <div class="kv-error">
+            <div class="kv-error-code">@Model.StatusCode</div>
+            <h1>@Model.Title</h1>
+            <p>@Model.Message</p>
+            <a class="btn kv-btn-primary" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house"></i> Kovana dön</a>
+        </div>
+    </div>
+</section>

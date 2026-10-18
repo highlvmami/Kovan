@@ -1,0 +1,110 @@
+/* ==========================================================================
+   HOME – Ana sayfa: hero + petek (honeycomb) modül ızgarası
+   ========================================================================== */
+
+.kv-hero {
+    background:
+        radial-gradient(circle at 85% 20%, rgba(245, 183, 0, .25), transparent 45%),
+        var(--kv-cream) var(--kv-hex-pattern);
+    padding: 3.5rem 0 4.5rem;
+    overflow: hidden;
+}
+.kv-hero-title {
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin: .3rem 0 1rem;
+}
+.kv-hero-title span {
+    background: linear-gradient(transparent 60%, var(--kv-honey-light) 60%);
+}
+.kv-hero-text { color: var(--kv-muted); font-size: 1.02rem; margin-bottom: 1.6rem; }
+
+.kv-hero-stats { display: flex; gap: 2rem; margin-top: 2rem; }
+.kv-hero-stats strong { display: block; font-size: 1.8rem; color: var(--kv-dark); }
+.kv-hero-stats span { color: var(--kv-muted); font-size: .85rem; }
+
+/* ---- PETEK IZGARASI ------------------------------------------------------
+   6 altıgen, 3 sütun x 2 satır. Ortadaki sütun yarım altıgen aşağı kayar,
+   sütunlar hafifçe iç içe geçer → gerçek petek görünümü.
+   ------------------------------------------------------------------------ */
+.kv-honeycomb {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 10px;
+    padding: 0 7% 12%;        /* yanlarda iç içe geçen altıgenler, altta aşağı kayan sütun için yer */
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+.kv-hex {
+    position: relative;
+    aspect-ratio: 1.1547;     /* düz kenarlı altıgen: genişlik / yükseklik = 2/√3 */
+    width: 114%;              /* komşu sütunlarla iç içe geçmesi için */
+    margin-left: -7%;
+    clip-path: var(--kv-hex-flat);
+    background: var(--kv-dark);
+    color: #fff;
+    text-decoration: none;
+    transition: transform var(--kv-transition), filter var(--kv-transition);
+}
+.kv-hex:nth-child(3n+2) { transform: translateY(50%); }   /* orta sütun */
+.kv-hex:hover { filter: brightness(1.08) drop-shadow(0 10px 18px rgba(0,0,0,.2)); z-index: 2; }
+.kv-hex:nth-child(3n+1):hover, .kv-hex:nth-child(3n):hover { transform: scale(1.06); }
+.kv-hex:nth-child(3n+2):hover { transform: translateY(50%) scale(1.06); }
+
+.kv-hex-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 24%;
+    line-height: 1.2;
+}
+.kv-hex-inner i { font-size: 2rem; margin-bottom: .3rem; }
+.kv-hex-inner strong { font-size: 1.05rem; }
+.kv-hex-inner span { font-size: .72rem; opacity: .85; margin-top: .2rem; }
+.kv-hex-inner em {
+    font-style: normal;
+    font-size: .68rem;
+    font-weight: 600;
+    margin-top: .4rem;
+    padding: .1rem .5rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .2);
+}
+
+/* Modül renkleri */
+.hex-market  { background: var(--kv-honey); color: var(--kv-dark); }
+.hex-events  { background: var(--kv-dark); color: var(--kv-honey); }
+.hex-topics  { background: #FFD457; color: var(--kv-dark); }
+.hex-carpool { background: var(--kv-dark-2); color: #fff; }
+.hex-profile { background: var(--kv-honey-dark); color: var(--kv-dark); }
+.hex-admin   { background: #4A4E5A; color: var(--kv-honey-light); }
+.hex-market .kv-hex-inner em, .hex-topics .kv-hex-inner em, .hex-profile .kv-hex-inner em { background: rgba(35, 37, 43, .12); }
+
+/* Hakkında sayfası */
+.kv-team-row { display: flex; align-items: center; gap: .9rem; padding: .7rem 0; border-bottom: 1px dashed var(--kv-border); }
+.kv-team-row:last-child { border-bottom: none; }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 991.98px) {
+    .kv-hero { padding: 2.5rem 0 3rem; }
+    .kv-honeycomb { max-width: 520px; }
+}
+
+/* Telefonda 2 sütun: ikinci sütun aşağı kayar */
+@media (max-width: 575.98px) {
+    .kv-honeycomb { grid-template-columns: repeat(2, 1fr); padding-bottom: 22%; }
+    .kv-hex { width: 112%; margin-left: -6%; }
+    .kv-hex:nth-child(3n+2) { transform: none; }
+    .kv-hex:nth-child(2n) { transform: translateY(50%); }
+    .kv-hex:nth-child(3n+2):hover, .kv-hex:hover { transform: scale(1.04); }
+    .kv-hex:nth-child(2n):hover { transform: translateY(50%) scale(1.04); }
+    .kv-hex-inner span { display: none; }   /* küçük ekranda açıklama gizlenir */
+    .kv-hex-inner i { font-size: 1.6rem; }
+    .kv-hero-stats { gap: 1.4rem; }
+}

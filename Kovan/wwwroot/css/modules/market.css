@@ -1,0 +1,89 @@
+/* ==========================================================================
+   MARKET MODÜLÜ – Filtre paneli, ilan detayı, artırma ve ödünç akışı
+   (Areas/Market/Views/_ViewStart.cshtml sayesinde otomatik yüklenir)
+   ========================================================================== */
+
+.kv-filter { position: sticky; top: 90px; }
+.kv-radio-list { display: flex; flex-direction: column; gap: .35rem; }
+.kv-radio-list label {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .4rem .6rem;
+    border-radius: 8px;
+    font-size: .88rem;
+    cursor: pointer;
+    transition: background var(--kv-transition);
+}
+.kv-radio-list label:hover { background: var(--kv-honey-soft); }
+.kv-radio-list input { accent-color: var(--kv-honey-dark); }
+.kv-radio-list i { color: var(--kv-honey-dark); }
+
+/* Detay görseli */
+.kv-detail-visual {
+    position: relative;
+    height: 340px;
+    border-radius: var(--kv-radius);
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--kv-honey-light), var(--kv-honey));
+    overflow: hidden;
+    box-shadow: var(--kv-shadow);
+}
+.kv-detail-visual::before { content: ""; position: absolute; inset: 0; background: var(--kv-hex-pattern); opacity: 1; }
+.kv-detail-visual i { position: relative; font-size: 7rem; color: var(--kv-dark); }
+.kv-detail-visual .kv-badge { position: absolute; top: 1rem; left: 1rem; font-size: .85rem; }
+
+/* Açık artırma kutusu */
+.kv-auction small { color: var(--kv-muted); }
+.kv-timer-box {
+    margin: 1rem 0 .3rem;
+    padding: .7rem 1rem;
+    border-radius: var(--kv-radius-sm);
+    background: var(--kv-dark);
+    color: #fff;
+}
+.kv-timer-box i, .kv-timer-box strong { color: var(--kv-honey); }
+
+/* Ödünç durum akışı: Beklemede → Onaylandı → Teslim → İade */
+.kv-steps { list-style: none; display: flex; padding: 0; margin: 0 0 1.2rem; counter-reset: step; }
+.kv-steps li {
+    flex: 1;
+    position: relative;
+    text-align: center;
+    font-size: .7rem;
+    color: var(--kv-muted);
+    padding-top: 34px;
+}
+.kv-steps li::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 26px; height: 29px;
+    line-height: 29px;
+    font-weight: 600;
+    background: var(--kv-honey-soft);
+    color: var(--kv-honey-dark);
+    clip-path: var(--kv-hex-pointy);
+    z-index: 1;
+}
+.kv-steps li::after {
+    content: "";
+    position: absolute;
+    top: 14px; left: -50%;
+    width: 100%; height: 2px;
+    background: var(--kv-honey-light);
+}
+.kv-steps li:first-child::after { display: none; }
+.kv-steps li.active { color: var(--kv-dark); font-weight: 600; }
+.kv-steps li.active::before { background: var(--kv-honey); color: var(--kv-dark); }
+
+@media (max-width: 991.98px) {
+    .kv-filter { position: static; }
+    .kv-radio-list { flex-direction: row; flex-wrap: wrap; }
+    .kv-radio-list label { border: 1px solid var(--kv-border); }
+    .kv-detail-visual { height: 240px; }
+    .kv-detail-visual i { font-size: 5rem; }
+}

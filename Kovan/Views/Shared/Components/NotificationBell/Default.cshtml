@@ -1,0 +1,33 @@
+@* NotificationBell ViewComponent'inin görünümü (navbar'daki zil) *@
+@model Kovan.ViewComponents.NotificationBellViewModel
+
+<div class="dropdown">
+    <button class="btn kv-bell" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Bildirimler">
+        <i class="bi bi-bell"></i>
+        @if (Model.UnreadCount > 0)
+        {
+            <span class="kv-bell-count">@Model.UnreadCount</span>
+        }
+    </button>
+    <div class="dropdown-menu dropdown-menu-end kv-dropdown kv-notifications">
+        <div class="kv-notifications-head">
+            <strong>Bildirimler</strong>
+            <span class="small">@Model.UnreadCount okunmamış</span>
+        </div>
+        @foreach (var n in Model.Items)
+        {
+            <a class="kv-notification @(n.IsRead ? "" : "unread")" href="@(n.Url ?? "#")">
+                <span class="kv-notification-icon"><i class="bi @n.Icon"></i></span>
+                <span class="kv-notification-body">
+                    <strong>@n.Title</strong>
+                    <span>@n.Message</span>
+                    <small>@n.Module · @n.TimeText</small>
+                </span>
+            </a>
+        }
+        @if (!Model.Items.Any())
+        {
+            <p class="p-3 mb-0 small text-muted">Yeni bildirim yok.</p>
+        }
+    </div>
+</div>

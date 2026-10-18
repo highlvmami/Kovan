@@ -1,0 +1,17 @@
+# .NET derleme çıktıları
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.vscode/
+.idea/
+
+# SQLite veritabanı (Faz 2'de oluşacak)
+*.db
+*.db-shm
+*.db-wal
+
+# İşletim sistemi
+.DS_Store
+Thumbs.db

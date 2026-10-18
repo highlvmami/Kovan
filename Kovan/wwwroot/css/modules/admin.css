@@ -1,0 +1,92 @@
+/* ==========================================================================
+   ADMIN MODÜLÜ – İstatistik kartları, çubuk grafik, tablo
+   ========================================================================== */
+
+.kv-admin-nav { display: flex; gap: .5rem; flex-wrap: wrap; }
+.kv-admin-nav a {
+    padding: .5rem 1.1rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 500;
+    background: var(--kv-white);
+    border: 1.5px solid var(--kv-border);
+}
+.kv-admin-nav a.active { background: var(--kv-dark); color: var(--kv-honey); border-color: var(--kv-dark); }
+.kv-admin-nav i { margin-right: .3rem; }
+
+.kv-stat {
+    background: var(--kv-white);
+    border: 1px solid var(--kv-border);
+    border-radius: var(--kv-radius);
+    box-shadow: var(--kv-shadow);
+    padding: 1.1rem;
+    text-align: center;
+    transition: transform var(--kv-transition);
+}
+.kv-stat:hover { transform: translateY(-4px); }
+.kv-stat i {
+    display: grid;
+    place-items: center;
+    width: 46px; height: 52px;
+    margin: 0 auto .5rem;
+    font-size: 1.3rem;
+    background: var(--kv-honey);
+    color: var(--kv-dark);
+    clip-path: var(--kv-hex-pointy);
+}
+.kv-stat strong { display: block; font-size: 1.8rem; line-height: 1; color: var(--kv-dark); }
+.kv-stat span { font-size: .8rem; color: var(--kv-muted); }
+.kv-stat.danger i { background: #FBE1E0; color: var(--kv-danger); }
+
+/* Saf CSS çubuk grafik */
+.kv-bars { display: flex; align-items: flex-end; justify-content: space-around; height: 240px; gap: 1rem; }
+.kv-bar-col { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: .4rem; }
+.kv-bar {
+    width: 100%;
+    max-width: 70px;
+    min-height: 24px;
+    border-radius: 10px 10px 4px 4px;
+    display: flex;
+    justify-content: center;
+    padding-top: .3rem;
+    font-weight: 600;
+    font-size: .85rem;
+    transition: filter var(--kv-transition);
+}
+.kv-bar:hover { filter: brightness(1.1); }
+.bar-market { background: var(--kv-honey); color: var(--kv-dark); }
+.bar-events { background: var(--kv-dark); color: var(--kv-honey); }
+.bar-topics { background: #FFD457; color: var(--kv-dark); }
+.bar-carpool { background: var(--kv-dark-2); color: #fff; }
+
+.kv-timeline { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--kv-honey-light); }
+.kv-timeline li { position: relative; padding: 0 0 1rem 1.2rem; font-size: .9rem; }
+.kv-timeline li::before {
+    content: "";
+    position: absolute;
+    left: -7px; top: .25rem;
+    width: 12px; height: 14px;
+    background: var(--kv-honey);
+    clip-path: var(--kv-hex-pointy);
+}
+
+.kv-table thead th {
+    background: var(--kv-dark);
+    color: var(--kv-honey);
+    font-weight: 500;
+    font-size: .85rem;
+    border: none;
+    padding: .85rem 1rem;
+}
+.kv-table td { vertical-align: middle; padding: .8rem 1rem; border-color: var(--kv-border); }
+.kv-table tbody tr:hover td { background: var(--kv-cream); }
+
+/* Mobilde tablo satırları karta dönüşür */
+@media (max-width: 767.98px) {
+    .kv-table thead { display: none; }
+    .kv-table, .kv-table tbody, .kv-table tr, .kv-table td { display: block; width: 100%; }
+    .kv-table tr { border-bottom: 6px solid var(--kv-cream); }
+    .kv-table td { display: flex; justify-content: space-between; align-items: center; text-align: right !important; border: none; padding: .5rem 1rem; }
+    .kv-table td::before { content: attr(data-label); font-weight: 600; font-size: .78rem; color: var(--kv-muted); }
+    .kv-bars { height: 180px; }
+}

@@ -1,0 +1,65 @@
+@* CARPOOL – YOLCULUK DETAYI: güzergâh, koltuk planı, sürücü *@
+@model RideDetailsViewModel
+@{
+    ViewData["Title"] = $"{Model.Card.From} → {Model.Card.To}";
+}
+
+<section class="kv-section">
+    <div class="container">
+        <nav class="kv-breadcrumb mb-3">
+            <a asp-action="Index">Yolculuk</a> <i class="bi bi-chevron-right"></i>
+            <span>@Model.Card.From → @Model.Card.To</span>
+        </nav>
+
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="kv-panel">
+                    <div class="kv-route-big">
+                        <div><small>Kalkış</small><strong>@Model.Card.From</strong><span>@Model.Card.TimeText</span></div>
+                        <i class="bi bi-arrow-right"></i>
+                        <div><small>Varış</small><strong>@Model.Card.To</strong><span>@Model.Card.DateText</span></div>
+                    </div>
+                    <div class="kv-spec-grid mt-4">
+                        <div><small>Buluşma noktası</small><strong>@(Model.MeetingPoint ?? "-")</strong></div>
+                        <div><small>Araç</small><strong>@(Model.CarInfo ?? "-")</strong></div>
+                        <div><small>Katkı payı</small><strong>@Model.Card.PriceText / kişi</strong></div>
+                        <div><small>Koltuk</small><strong>@Model.ReservedSeats / @Model.Card.TotalSeats dolu</strong></div>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.Note))
+                    {
+                        <div class="kv-note mt-4"><i class="bi bi-chat-quote"></i> @Model.Note</div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="kv-panel kv-action-box">
+                    <h2 class="h5">Koltuk planı</h2>
+                    <div class="kv-seat-map">
+                        <span class="kv-seat driver"><i class="bi bi-person-badge"></i></span>
+                        @for (int i = 0; i < Model.Card.TotalSeats; i++)
+                        {
+                            var taken = i < Model.ReservedSeats;
+                            <span class="kv-seat @(taken ? "taken" : "free")" title="@(taken ? "Dolu" : "Boş")">
+                                <i class="bi @(taken ? "bi-person-fill" : "bi-plus")"></i>
+                            </span>
+                        }
+                    </div>
+                    @if (Model.Card.IsFull)
+                    {
+                        <button class="btn kv-btn-outline w-100 mt-3" disabled>Koltuklar dolu</button>
+                    }
+                    else
+                    {
+                        <button class="btn kv-btn-primary w-100 mt-3" disabled><i class="bi bi-ticket"></i> Koltuk Ayır (Faz 3)</button>
+                    }
+                    <hr />
+                    <div class="kv-owner">
+                        <span class="kv-avatar">@Model.Card.DriverInitials</span>
+                        <span><strong>@Model.Card.DriverName</strong><small class="d-block kv-muted">Sürücü</small></span>
+                        <span class="kv-trust ms-auto"><i class="bi bi-star-fill"></i> @Model.Card.DriverTrust.ToString("0.0")</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

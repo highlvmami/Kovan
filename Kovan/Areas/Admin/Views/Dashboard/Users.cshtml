@@ -1,0 +1,50 @@
+@* ADMIN – KULLANICILAR: responsive tablo (mobilde kart görünümü) *@
+@model List<AdminUserRowViewModel>
+@{
+    ViewData["Title"] = "Kullanıcılar";
+}
+
+<partial name="_PageHeader" model='new PageHeaderViewModel { Title = "Kullanıcı Yönetimi", Subtitle = "Kovandaki tüm arılar.", Icon = "bi-people", ModuleName = "Yönetim" }' />
+
+<section class="kv-section">
+    <div class="container">
+        <div class="kv-admin-nav mb-4">
+            <a asp-action="Index"><i class="bi bi-speedometer2"></i> Pano</a>
+            <a class="active" asp-action="Users"><i class="bi bi-people"></i> Kullanıcılar</a>
+        </div>
+
+        <div class="kv-panel p-0 overflow-hidden">
+            <table class="table kv-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Kullanıcı</th>
+                        <th>Bölüm</th>
+                        <th>Rol</th>
+                        <th>Güven</th>
+                        <th class="text-end">İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var u in Model)
+                    {
+                        <tr>
+                            <td data-label="Kullanıcı">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="kv-avatar kv-avatar-sm">@u.Initials</span>
+                                    <div><strong>@u.FullName</strong><small class="d-block kv-muted">@u.Email</small></div>
+                                </div>
+                            </td>
+                            <td data-label="Bölüm">@u.Department</td>
+                            <td data-label="Rol"><span class="kv-chip">@u.Role</span></td>
+                            <td data-label="Güven"><span class="kv-trust"><i class="bi bi-star-fill"></i> @u.TrustScore.ToString("0.0")</span></td>
+                            <td data-label="İşlem" class="text-end">
+                                <a class="btn kv-btn-outline btn-sm" asp-area="" asp-controller="Profile" asp-action="Index" asp-route-id="@u.Id"><i class="bi bi-eye"></i></a>
+                                <button class="btn btn-sm btn-outline-danger" disabled title="Faz 5"><i class="bi bi-slash-circle"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

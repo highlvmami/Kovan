@@ -1,0 +1,89 @@
+@* CARPOOL – YOLCULUK ARAMA: kalkış/varış listeleri servisten, sonuçlar @foreach ile *@
+@model RideIndexViewModel
+@{
+    ViewData["Title"] = "Yolculuk";
+}
+
+<partial name="_PageHeader" model='new PageHeaderViewModel { Title = "Ortak Yolculuk", Subtitle = "Turgutlu, Manisa, İzmir… Aynı yöne gidenlerle yolu ve masrafı paylaş.", Icon = "bi-car-front", ModuleName = "Yolculuk" }' />
+
+<section class="kv-section">
+    <div class="container">
+        <!-- Arama formu -->
+        <form method="get" asp-action="Index" class="kv-panel kv-ride-search mb-4">
+            <div class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label" for="from"><i class="bi bi-geo-alt"></i> Nereden</label>
+                    <select id="from" name="from" class="form-select">
+                        <option value="">Fark etmez</option>
+                        @foreach (var p in Model.Places)
+                        {
+                            <option value="@p" selected="@(p == Model.From)">@p</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="to"><i class="bi bi-flag"></i> Nereye</label>
+                    <select id="to" name="to" class="form-select">
+                        <option value="">Fark etmez</option>
+                        @foreach (var p in Model.Places)
+                        {
+                            <option value="@p" selected="@(p == Model.To)">@p</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label" for="date"><i class="bi bi-calendar"></i> Tarih</label>
+                    <input id="date" type="date" name="date" class="form-control" value="@Model.Date?.ToString("yyyy-MM-dd")" />
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn kv-btn-primary w-100"><i class="bi bi-search"></i> Ara</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <p class="mb-0 kv-muted"><strong>@Model.Rides.Count</strong> yolculuk bulundu</p>
+            <button class="btn kv-btn-primary btn-sm" disabled title="Faz 3'te aktif olacak"><i class="bi bi-plus-lg"></i> Yolculuk Ekle</button>
+        </div>
+
+        @if (Model.Rides.Any())
+        {
+            <div class="kv-ride-list">
+                @foreach (var r in Model.Rides)
+                {
+                    <a class="kv-card kv-ride-card @(r.IsFull ? "full" : "")" asp-action="Details" asp-route-id="@r.Id">
+                        <div class="kv-ride-time">
+                            <strong>@r.TimeText</strong>
+                            <small>@r.DateText</small>
+                        </div>
+                        <div class="kv-ride-route">
+                            <span><i class="bi bi-circle"></i> @r.From</span>
+                            <span class="kv-ride-line"></span>
+                            <span><i class="bi bi-geo-alt-fill"></i> @r.To</span>
+                        </div>
+                        <div class="kv-ride-driver">
+                            <span class="kv-avatar kv-avatar-sm">@r.DriverInitials</span>
+                            <span>
+                                <strong>@r.DriverName</strong>
+                                <small class="d-block"><i class="bi bi-star-fill text-warning"></i> @r.DriverTrust.ToString("0.0")</small>
+                            </span>
+                        </div>
+                        <div class="kv-ride-seats">
+                            @* Koltuk ikonları: dolu koltuk koyu, boş koltuk sarı *@
+                            @for (int i = 0; i < r.TotalSeats; i++)
+                            {
+                                <i class="bi bi-person-fill @(i < r.TotalSeats - r.AvailableSeats ? "taken" : "free")"></i>
+                            }
+                            <small>@(r.IsFull ? "Dolu" : $"{r.AvailableSeats} boş")</small>
+                        </div>
+                        <div class="kv-ride-price">@r.PriceText<small>/kişi</small></div>
+                    </a>
+                }
+            </div>
+        }
+        else
+        {
+            <partial name="_EmptyState" model='new EmptyStateViewModel { Icon = "bi-car-front", Title = "Bu güzergâhta yolculuk yok", Message = "Farklı bir tarih ya da güzergâh dene." }' />
+        }
+    </div>
+</section>

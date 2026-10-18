@@ -1,0 +1,61 @@
+@* PROFİL DÜZENLE – form Faz 3'te veritabanına kaydedecek *@
+@model ProfileEditViewModel
+@{
+    ViewData["Title"] = "Profili Düzenle";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/modules/profile.css" asp-append-version="true" />
+}
+
+<partial name="_PageHeader" model='new PageHeaderViewModel { Title = "Profili Düzenle", Subtitle = "Bilgilerin tüm modüllerde ortak kullanılır.", Icon = "bi-person-gear", ModuleName = "Profil" }' />
+
+<section class="kv-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <form asp-action="Edit" method="post" class="kv-panel" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="text-danger small"></div>
+
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <span class="kv-avatar kv-avatar-lg"><i class="bi bi-camera"></i></span>
+                        <div>
+                            <strong>Profil fotoğrafı</strong>
+                            <small class="d-block kv-muted">Fotoğraf yükleme Faz 3'te eklenecek.</small>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="FullName" class="form-label"></label>
+                        <input asp-for="FullName" class="form-control" />
+                        <span asp-validation-for="FullName" class="text-danger small"></span>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-sm-8">
+                            <label asp-for="Department" class="form-label"></label>
+                            <select asp-for="Department" class="form-select">
+                                @foreach (var d in RegisterViewModel.Departments)
+                                {
+                                    <option value="@d">@d</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label asp-for="Grade" class="form-label"></label>
+                            <input asp-for="Grade" class="form-control" min="1" max="6" />
+                            <span asp-validation-for="Grade" class="text-danger small"></span>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label asp-for="Bio" class="form-label"></label>
+                        <textarea asp-for="Bio" class="form-control" rows="3" placeholder="Kendinden kısaca bahset..."></textarea>
+                    </div>
+
+                    <div class="d-flex gap-2 justify-content-end">
+                        <a class="btn kv-btn-outline" asp-action="Index">Vazgeç</a>
+                        <button type="submit" class="btn kv-btn-primary"><i class="bi bi-check2"></i> Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

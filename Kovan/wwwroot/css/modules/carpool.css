@@ -1,0 +1,71 @@
+/* ==========================================================================
+   CARPOOL MODÜLÜ – Arama, yolculuk satırları, koltuk planı
+   ========================================================================== */
+
+.kv-ride-search { background: var(--kv-dark) var(--kv-hex-pattern); border: none; }
+.kv-ride-search .form-label { color: var(--kv-honey-light); }
+
+.kv-ride-list { display: flex; flex-direction: column; gap: 1rem; }
+
+.kv-ride-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.1rem 1.4rem;
+}
+.kv-ride-card:hover { transform: translateX(6px); }
+.kv-ride-card.full { opacity: .65; }
+
+.kv-ride-time { min-width: 110px; }
+.kv-ride-time strong { display: block; font-size: 1.5rem; color: var(--kv-dark); }
+.kv-ride-time small { color: var(--kv-muted); text-transform: capitalize; }
+
+.kv-ride-route { flex: 1; display: flex; align-items: center; gap: .7rem; font-weight: 600; min-width: 0; }
+.kv-ride-route i { color: var(--kv-honey-dark); }
+.kv-ride-line { flex: 1; min-width: 30px; border-top: 2px dashed var(--kv-honey); }
+
+.kv-ride-driver { display: flex; align-items: center; gap: .5rem; min-width: 160px; font-size: .88rem; }
+
+.kv-ride-seats { display: flex; align-items: center; gap: .15rem; min-width: 110px; }
+.kv-ride-seats i { font-size: 1.1rem; }
+.kv-ride-seats i.free { color: var(--kv-honey); }
+.kv-ride-seats i.taken { color: var(--kv-dark-2); }
+.kv-ride-seats small { margin-left: .4rem; color: var(--kv-muted); }
+
+.kv-ride-price { font-size: 1.25rem; font-weight: 700; color: var(--kv-dark); white-space: nowrap; }
+.kv-ride-price small { font-size: .75rem; font-weight: 400; color: var(--kv-muted); }
+
+/* Detay: büyük güzergâh */
+.kv-route-big { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.kv-route-big > div { display: flex; flex-direction: column; }
+.kv-route-big small { color: var(--kv-muted); }
+.kv-route-big strong { font-size: 1.6rem; }
+.kv-route-big span { color: var(--kv-honey-dark); font-weight: 600; text-transform: capitalize; }
+.kv-route-big > i { font-size: 2rem; color: var(--kv-honey); }
+
+.kv-note { padding: .9rem 1rem; border-left: 4px solid var(--kv-honey); background: var(--kv-honey-soft); border-radius: 0 var(--kv-radius-sm) var(--kv-radius-sm) 0; }
+
+/* Koltuk planı: altıgen koltuklar */
+.kv-seat-map { display: grid; grid-template-columns: repeat(2, 64px); gap: 10px; justify-content: center; }
+.kv-seat {
+    width: 64px; height: 72px;
+    display: grid;
+    place-items: center;
+    font-size: 1.4rem;
+    clip-path: var(--kv-hex-pointy);
+}
+.kv-seat.driver { background: var(--kv-dark); color: var(--kv-honey); }
+.kv-seat.taken { background: var(--kv-dark-2); color: #fff; opacity: .55; }
+.kv-seat.free { background: var(--kv-honey); color: var(--kv-dark); }
+
+@media (max-width: 991.98px) {
+    .kv-ride-card { flex-wrap: wrap; gap: .8rem 1.2rem; }
+    .kv-ride-route { order: -1; flex-basis: 100%; }
+    .kv-ride-driver { min-width: 0; }
+    .kv-ride-price { margin-left: auto; }
+}
+@media (max-width: 575.98px) {
+    .kv-ride-card { padding: 1rem; }
+    .kv-ride-time { min-width: 0; }
+    .kv-route-big strong { font-size: 1.2rem; }
+}

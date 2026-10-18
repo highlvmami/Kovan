@@ -1,0 +1,30 @@
+/* ==========================================================================
+   PROFILE – Profil kapağı, kullanıcı kartı, güven puanı
+   ========================================================================== */
+
+.kv-profile-cover {
+    height: 180px;
+    background:
+        linear-gradient(120deg, rgba(245, 183, 0, .9), rgba(217, 154, 0, .85)),
+        var(--kv-hex-pattern);
+    background-color: var(--kv-honey);
+}
+
+.kv-profile-card { text-align: center; margin-top: -90px; position: relative; }
+.kv-profile-card .kv-avatar-xl { margin-top: -10px; box-shadow: none; }
+
+.kv-trust-big { margin: 1.4rem 0; padding: 1rem; border-radius: var(--kv-radius-sm); background: var(--kv-cream); }
+.kv-trust-big strong { font-size: 2.6rem; line-height: 1; color: var(--kv-dark); }
+.kv-stars { color: var(--kv-honey); font-size: 1.2rem; margin: .3rem 0; }
+
+.kv-trust-row { display: grid; grid-template-columns: 140px 1fr 40px; align-items: center; gap: 1rem; margin-bottom: .8rem; font-size: .9rem; }
+.kv-trust-row i { color: var(--kv-honey-dark); margin-right: .3rem; }
+.kv-trust-row strong { text-align: right; }
+
+@media (max-width: 991.98px) {
+    .kv-profile-cover { height: 130px; }
+    .kv-profile-card { margin-top: -70px; }
+}
+@media (max-width: 575.98px) {
+    .kv-trust-row { grid-template-columns: 110px 1fr 34px; gap: .6rem; }
+}

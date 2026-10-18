@@ -1,0 +1,22 @@
+@* Her sayfanın üstündeki petek desenli başlık bandı.
+   Kullanım: <partial name="_PageHeader" model='new PageHeaderViewModel { Title = "...", Icon = "bi-shop" }' /> *@
+@model PageHeaderViewModel
+
+<section class="kv-page-header">
+    <div class="container">
+        <div class="d-flex align-items-center gap-3">
+            <span class="kv-hex-icon"><i class="bi @Model.Icon"></i></span>
+            <div>
+                @if (!string.IsNullOrEmpty(Model.ModuleName))
+                {
+                    <span class="kv-eyebrow">@Model.ModuleName</span>
+                }
+                <h1>@Model.Title</h1>
+                @if (!string.IsNullOrEmpty(Model.Subtitle))
+                {
+                    <p>@Model.Subtitle</p>
+                }
+            </div>
+        </div>
+    </div>
+</section>

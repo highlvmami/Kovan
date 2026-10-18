@@ -1,0 +1,44 @@
+@* TOPICS – SOHBET ODALARI LİSTESİ *@
+@model RoomIndexViewModel
+@{
+    ViewData["Title"] = "Konular";
+}
+
+<partial name="_PageHeader" model='new PageHeaderViewModel { Title = "Konu Odaları", Subtitle = "Ders, barınma, kariyer… İlgilendiğin odaya katıl, sohbete başla.", Icon = "bi-chat-dots", ModuleName = "Konular" }' />
+
+<section class="kv-section">
+    <div class="container">
+        <div class="kv-tabs mb-4">
+            <a class="kv-tab @(Model.SelectedTag == null ? "active" : "")" asp-action="Index">Tümü</a>
+            @foreach (var tag in Model.Tags)
+            {
+                <a class="kv-tab @(Model.SelectedTag == tag ? "active" : "")" asp-action="Index" asp-route-tag="@tag">@tag</a>
+            }
+        </div>
+
+        <div class="row g-4">
+            @foreach (var room in Model.Rooms)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <a class="kv-card kv-room-card" asp-action="Room" asp-route-id="@room.Id">
+                        <div class="kv-card-body">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <span class="kv-hex-icon"><i class="bi @room.Icon"></i></span>
+                                <div>
+                                    <span class="kv-chip">@room.Tag</span>
+                                    <h3 class="kv-card-title mb-0 mt-1">@room.Name</h3>
+                                </div>
+                            </div>
+                            <p class="kv-muted small">@room.Description</p>
+                            <div class="kv-card-footer small">
+                                <span><i class="bi bi-people"></i> @room.MemberCount üye</span>
+                                <span class="kv-online"><span class="kv-dot"></span> @room.OnlineCount çevrimiçi</span>
+                            </div>
+                            <small class="kv-muted">Son aktivite: @room.LastActivity</small>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</section>

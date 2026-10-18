@@ -1,0 +1,51 @@
+@* HAKKINDA: Kovan fikri, mimari ve ekip *@
+@model List<TeamMemberViewModel>
+@{
+    ViewData["Title"] = "Hakkında";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/modules/home.css" asp-append-version="true" />
+}
+
+<partial name="_PageHeader" model='new PageHeaderViewModel { Title = "Kovan Nedir?", Subtitle = "Öğrenciler arı, modüller petek gözü.", Icon = "bi-hexagon-half", ModuleName = "Hakkında" }' />
+
+<section class="kv-section">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="kv-panel h-100">
+                    <h2 class="h4">Fikir</h2>
+                    <p>
+                        Kovan, kampüsteki günlük ihtiyaçları tek çatı altında toplayan modüler bir platformdur.
+                        Her modül (Market, Etkinlikler, Konular, Yolculuk) ayrı bir iş yapar; ancak hepsi
+                        ortak bir altyapıyı paylaşır: <strong>kullanıcı, bildirim, güven puanı ve mesajlaşma</strong>.
+                    </p>
+                    <h2 class="h4 mt-4">Mimari</h2>
+                    <ul class="kv-check-list">
+                        <li>Her modül ayrı bir <strong>Area</strong>: kendi Controller, View ve CSS dosyası var.</li>
+                        <li>İş mantığı <strong>Core/Services</strong> katmanında; Controller'lar ince.</li>
+                        <li>Servisler <strong>interface</strong> arkasında, DI ile enjekte ediliyor.</li>
+                        <li>View'lara entity değil <strong>ViewModel</strong> gönderiliyor.</li>
+                        <li>Yeni modül eklemek = yeni bir Area klasörü + bir servis kaydı.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="kv-panel h-100">
+                    <h2 class="h4">Ekip</h2>
+                    @* Ekip listesi controller'dan model olarak geliyor *@
+                    @foreach (var member in Model)
+                    {
+                        <div class="kv-team-row">
+                            <span class="kv-hex-icon kv-hex-icon-sm"><i class="bi @member.Icon"></i></span>
+                            <div>
+                                <strong>@member.Name</strong>
+                                <small class="d-block kv-muted">@member.Role</small>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

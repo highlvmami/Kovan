@@ -1,0 +1,84 @@
+@*
+    TOPICS – SOHBET ODASI
+    Mesajlar şimdilik servisten gelen örnek veridir.
+    Faz 4'te SignalR (ChatHub) ile mesajlar sayfa yenilenmeden gelecek/gidecek.
+*@
+@model RoomChatViewModel
+@{
+    ViewData["Title"] = Model.Room.Name;
+}
+
+<section class="kv-section">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Sol: diğer odalar (masaüstünde görünür) -->
+            <aside class="col-lg-3 d-none d-lg-block">
+                <div class="kv-panel kv-room-list">
+                    <h2 class="h6 mb-3">Diğer odalar</h2>
+                    @foreach (var r in Model.OtherRooms)
+                    {
+                        <a asp-action="Room" asp-route-id="@r.Id">
+                            <i class="bi @r.Icon"></i>
+                            <span>@r.Name</span>
+                            <small>@r.OnlineCount</small>
+                        </a>
+                    }
+                    <a class="kv-link mt-2" asp-action="Index"><i class="bi bi-arrow-left"></i> Tüm odalar</a>
+                </div>
+            </aside>
+
+            <!-- Sağ: sohbet penceresi -->
+            <div class="col-lg-9">
+                <div class="kv-chat">
+                    <header class="kv-chat-head">
+                        <a class="d-lg-none kv-link" asp-action="Index" aria-label="Geri"><i class="bi bi-arrow-left"></i></a>
+                        <span class="kv-hex-icon kv-hex-icon-sm"><i class="bi @Model.Room.Icon"></i></span>
+                        <div class="flex-grow-1">
+                            <strong>@Model.Room.Name</strong>
+                            <small class="d-block kv-online"><span class="kv-dot"></span> @Model.Room.OnlineCount çevrimiçi · @Model.Room.MemberCount üye</small>
+                        </div>
+                        <button class="btn kv-btn-outline btn-sm" disabled>Ayrıl</button>
+                    </header>
+
+                    <div class="kv-chat-body" id="chatBody">
+                        @foreach (var m in Model.Messages)
+                        {
+                            <div class="kv-msg @(m.IsMine ? "mine" : "")">
+                                @if (!m.IsMine)
+                                {
+                                    <span class="kv-avatar kv-avatar-sm">@m.SenderInitials</span>
+                                }
+                                <div class="kv-bubble">
+                                    @if (!m.IsMine)
+                                    {
+                                        <strong>@m.SenderName</strong>
+                                    }
+                                    <p>@m.Content</p>
+                                    <small>@m.TimeText
+                                        @if (!m.IsMine)
+                                        {
+                                            <button class="kv-report" title="Şikâyet et (Faz 5)" disabled><i class="bi bi-flag"></i></button>
+                                        }
+                                    </small>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <form class="kv-chat-input" onsubmit="return false;">
+                        <input class="form-control" placeholder="Mesaj yaz… (canlı sohbet Faz 4'te SignalR ile)" disabled />
+                        <button class="btn kv-btn-primary" disabled aria-label="Gönder"><i class="bi bi-send"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        // Sohbet açıldığında en son mesaja kaydır
+        const body = document.getElementById('chatBody');
+        if (body) body.scrollTop = body.scrollHeight;
+    </script>
+}
