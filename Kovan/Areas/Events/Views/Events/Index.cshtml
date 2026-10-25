@@ -4,6 +4,7 @@
     ViewData["Title"] = "Etkinlikler";
 }
 
+@* ===== [PARTIAL VIEW] _PageHeader → sayfa başlığı; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_PageHeader.cshtml) ===== *@
 <partial name="_PageHeader" model='new PageHeaderViewModel { Title = "Kampüste Neler Var?", Subtitle = "Kulüp ve bireysel etkinlikler, atölyeler, turnuvalar.", Icon = "bi-calendar-event", ModuleName = "Etkinlikler" }' />
 
 <section class="kv-section">
@@ -30,6 +31,7 @@
                 @foreach (var ev in Model.Events)
                 {
                     <div class="col-md-6 col-lg-4">
+                        @* ===== [PARTIAL VIEW] _EventCard → etkinlik kartı; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_EventCard.cshtml) ===== *@
                         <partial name="_EventCard" model="ev" />
                     </div>
                 }
@@ -37,6 +39,7 @@
         }
         else
         {
+            @* ===== [PARTIAL VIEW] _EmptyState → boş durum kutusu; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_EmptyState.cshtml) ===== *@
             <partial name="_EmptyState" model='new EmptyStateViewModel { Icon = "bi-calendar-x", Title = "Bu kategoride yaklaşan etkinlik yok", Message = "Başka bir kategoriye göz at ya da takvimi incele." }' />
         }
     </div>

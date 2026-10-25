@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Kovan.ViewComponents;
 
+// ===== [VIEW COMPONENT] – TANIM · Kullanıldığı yer: Etkinlik detayı, Sohbet odası, Yolculuk detayı =====
 /// <summary>
 /// "Kampüste yeni ilanlar" kutusu.
 /// Market dışındaki sayfaların yan sütununda (etkinlik detayı, sohbet odası,

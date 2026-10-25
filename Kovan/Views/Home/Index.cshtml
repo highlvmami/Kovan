@@ -76,6 +76,7 @@
             @foreach (var listing in Model.LatestListings)
             {
                 <div class="col-sm-6 col-lg-3">
+                    @* ===== [PARTIAL VIEW] _ListingCard → ilan kartı; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_ListingCard.cshtml) ===== *@
                     <partial name="_ListingCard" model="listing" />
                 </div>
             }
@@ -97,6 +98,7 @@
             @foreach (var ev in Model.UpcomingEvents)
             {
                 <div class="col-md-6 col-lg-4">
+                    @* ===== [PARTIAL VIEW] _EventCard → etkinlik kartı; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_EventCard.cshtml) ===== *@
                     <partial name="_EventCard" model="ev" />
                 </div>
             }

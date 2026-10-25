@@ -4,6 +4,7 @@
     ViewData["Title"] = "Yolculuk";
 }
 
+@* ===== [PARTIAL VIEW] _PageHeader → sayfa başlığı; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_PageHeader.cshtml) ===== *@
 <partial name="_PageHeader" model='new PageHeaderViewModel { Title = "Ortak Yolculuk", Subtitle = "Turgutlu, Manisa, İzmir… Aynı yöne gidenlerle yolu ve masrafı paylaş.", Icon = "bi-car-front", ModuleName = "Yolculuk" }' />
 
 <section class="kv-section">
@@ -83,6 +84,7 @@
         }
         else
         {
+            @* ===== [PARTIAL VIEW] _EmptyState → boş durum kutusu; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_EmptyState.cshtml) ===== *@
             <partial name="_EmptyState" model='new EmptyStateViewModel { Icon = "bi-car-front", Title = "Bu güzergâhta yolculuk yok", Message = "Farklı bir tarih ya da güzergâh dene." }' />
         }
     </div>

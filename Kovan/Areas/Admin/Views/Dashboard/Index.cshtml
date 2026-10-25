@@ -5,6 +5,7 @@
     var max = Math.Max(1, Model.ModuleBars.Max(b => b.Value));
 }
 
+@* ===== [PARTIAL VIEW] _PageHeader → sayfa başlığı; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_PageHeader.cshtml) ===== *@
 <partial name="_PageHeader" model='new PageHeaderViewModel { Title = "Yönetim Paneli", Subtitle = "Kovanın genel durumu.", Icon = "bi-shield-lock", ModuleName = "Yönetim" }' />
 
 <section class="kv-section">

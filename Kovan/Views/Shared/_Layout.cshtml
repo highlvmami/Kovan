@@ -61,7 +61,7 @@
             </a>
 
             <div class="d-flex align-items-center gap-2 order-lg-last">
-                @* Bildirim zili: ViewComponent kendi verisini kendisi çeker *@
+                @* ===== [VIEW COMPONENT] NotificationBell → bildirim zili; veriyi INotificationService'ten kendisi çeker (ViewComponents/NotificationBellViewComponent.cs) ===== *@
                 @await Component.InvokeAsync("NotificationBell")
 
                 <div class="dropdown">

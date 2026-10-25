@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Kovan.ViewComponents;
 
+// ===== [VIEW COMPONENT] – TANIM · Kullanıldığı yer: _Layout navbar (tüm sayfalar) =====
 /// <summary>
 /// Navbar'daki bildirim zili.
 /// ViewComponent, kendi verisini kendisi çeken "mini controller" gibidir:

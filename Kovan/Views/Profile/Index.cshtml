@@ -71,6 +71,7 @@
                         @foreach (var l in Model.MyListings)
                         {
                             <div class="col-sm-6">
+                                @* ===== [PARTIAL VIEW] _ListingCard → ilan kartı; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_ListingCard.cshtml) ===== *@
                                 <partial name="_ListingCard" model="l" />
                             </div>
                         }
@@ -78,6 +79,7 @@
                 }
                 else
                 {
+                    @* ===== [PARTIAL VIEW] _EmptyState → boş durum kutusu; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_EmptyState.cshtml) ===== *@
                     <partial name="_EmptyState" model='new EmptyStateViewModel { Icon = "bi-shop", Title = "Henüz ilan yok", Message = "Market modülünden ilk ilanını verebilirsin." }' />
                 }
             </div>

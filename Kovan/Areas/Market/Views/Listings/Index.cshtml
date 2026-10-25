@@ -11,6 +11,7 @@
     ViewData["Title"] = "Market";
 }
 
+@* ===== [PARTIAL VIEW] _PageHeader → sayfa başlığı; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_PageHeader.cshtml) ===== *@
 <partial name="_PageHeader" model='new PageHeaderViewModel { Title = "Ödünç & Satış Pazarı", Subtitle = "Ders kaynakları, elektronik, ekipman… Kampüs içinde güvenle paylaş.", Icon = "bi-shop", ModuleName = "Market" }' />
 
 <section class="kv-section">
@@ -78,6 +79,7 @@
                         @foreach (var listing in Model.Listings)
                         {
                             <div class="col-sm-6 col-xl-4">
+                                @* ===== [PARTIAL VIEW] _ListingCard → ilan kartı; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_ListingCard.cshtml) ===== *@
                                 <partial name="_ListingCard" model="listing" />
                             </div>
                         }
@@ -85,6 +87,7 @@
                 }
                 else
                 {
+                    @* ===== [PARTIAL VIEW] _EmptyState → boş durum kutusu; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_EmptyState.cshtml) ===== *@
                     <partial name="_EmptyState" model='new EmptyStateViewModel { Icon = "bi-search", Title = "Bu filtreye uygun ilan yok", Message = "Filtreleri değiştirmeyi ya da temizlemeyi dene." }' />
                 }
             </div>
