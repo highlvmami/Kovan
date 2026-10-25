@@ -10,4 +10,7 @@ public interface INotificationService
 {
     Task<IReadOnlyList<Notification>> GetRecentAsync(int userId, int count = 5);
     Task<int> GetUnreadCountAsync(int userId);
+
+    /// <summary>Kullanıcıya yeni bildirim ekler (navbar'daki zil ViewComponent'inde görünür).</summary>
+    Task AddAsync(Notification notification);
 }

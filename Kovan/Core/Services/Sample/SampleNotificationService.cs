@@ -23,4 +23,15 @@ public class SampleNotificationService : INotificationService
 
     public Task<int> GetUnreadCountAsync(int userId) =>
         Task.FromResult(_store.Notifications.Count(n => n.UserId == userId && !n.IsRead));
+
+    public Task AddAsync(Notification notification)
+    {
+        lock (_store.Notifications)
+        {
+            notification.Id = _store.Notifications.Count == 0 ? 1 : _store.Notifications.Max(n => n.Id) + 1;
+            notification.CreatedAt = DateTime.Now;
+            _store.Notifications.Add(notification);
+        }
+        return Task.CompletedTask;
+    }
 }

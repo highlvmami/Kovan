@@ -95,6 +95,7 @@
             <div class="row g-4">
                 @foreach (var s in Model.Similar)
                 {
+                    @* ===== [PARTIAL VIEW] _ListingCard → ilan kartı; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_ListingCard.cshtml) ===== *@
                     <div class="col-sm-6 col-lg-4"><partial name="_ListingCard" model="s" /></div>
                 }
             </div>

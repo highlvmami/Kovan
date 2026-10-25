@@ -87,3 +87,28 @@
     .kv-detail-visual { height: 240px; }
     .kv-detail-visual i { font-size: 5rem; }
 }
+
+/* ---------- İlan Ver formu ---------- */
+.kv-type-picker { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
+.kv-type-option { position: relative; cursor: pointer; margin: 0; }
+.kv-type-option input { position: absolute; opacity: 0; pointer-events: none; }
+.kv-type-option span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    padding: .7rem .5rem;
+    border: 2px solid var(--kv-border);
+    border-radius: var(--kv-radius-sm);
+    font-weight: 600;
+    font-size: .9rem;
+    text-align: center;
+    transition: all var(--kv-transition);
+}
+.kv-type-option:hover span { background: var(--kv-honey-soft); }
+.kv-type-option input:checked + span { border-color: var(--kv-honey); background: var(--kv-honey-soft); color: var(--kv-dark); }
+.kv-type-option input:focus-visible + span { outline: 3px solid var(--kv-honey-light); }
+.kv-type-option i { color: var(--kv-honey-dark); }
+@media (max-width: 575.98px) {
+    .kv-type-picker { grid-template-columns: 1fr; }
+}

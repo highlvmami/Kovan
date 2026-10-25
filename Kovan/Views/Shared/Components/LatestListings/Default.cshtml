@@ -1,0 +1,32 @@
+@* ===== [VIEW COMPONENT] LatestListings – GÖRÜNÜM =====
+   Kodu: ViewComponents/LatestListingsViewComponent.cs · Kullanıldığı yer: Etkinlik detayı, Sohbet odası, Yolculuk detayı *@
+@* LatestListings ViewComponent'inin görünümü: yan sütunda kompakt ilan listesi *@
+@model List<Kovan.ViewComponents.MiniListingViewModel>
+
+<div class="kv-panel kv-mini-listings">
+    <h2 class="h6 mb-2"><i class="bi bi-shop"></i> Kampüste yeni ilanlar</h2>
+    @foreach (var l in Model)
+    {
+        <a class="kv-mini-listing" asp-area="Market" asp-controller="Listings" asp-action="Details" asp-route-id="@l.Id">
+            <span class="kv-mini-listing-icon"><i class="bi @l.CategoryIcon"></i></span>
+            <span class="kv-mini-listing-body">
+                <strong>@l.Title</strong>
+                <small>
+                    @l.TypeText · @l.TimeText
+                    @if (l.IsNew)
+                    {
+                        <span class="kv-mini-listing-new">YENİ</span>
+                    }
+                </small>
+            </span>
+        </a>
+    }
+    @if (!Model.Any())
+    {
+        <p class="small kv-muted mb-0">Henüz ilan yok.</p>
+    }
+    <div class="d-flex justify-content-between mt-2">
+        <a class="kv-link small" asp-area="Market" asp-controller="Listings" asp-action="Index">Tümünü gör</a>
+        <a class="kv-link small" asp-area="Market" asp-controller="Listings" asp-action="Create"><i class="bi bi-plus-lg"></i> İlan ver</a>
+    </div>
+</div>

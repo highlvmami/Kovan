@@ -65,6 +65,10 @@
                         <span><strong>@Model.OrganizerName</strong><small class="d-block kv-muted">Organizatör</small></span>
                     </div>
                 </div>
+                <div class="mt-4">
+                    @* ===== [VIEW COMPONENT] LatestListings → "Kampüste yeni ilanlar"; veriyi IListingService'ten kendisi çeker (ViewComponents/LatestListingsViewComponent.cs) ===== *@
+                    @await Component.InvokeAsync("LatestListings", new { count = 4 })
+                </div>
             </div>
         </div>
     </div>

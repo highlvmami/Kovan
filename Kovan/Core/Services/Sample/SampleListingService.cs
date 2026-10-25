@@ -52,6 +52,21 @@ public class SampleListingService : IListingService
         return Task.FromResult(result);
     }
 
+    public Task<Listing> AddAsync(Listing listing)
+    {
+        // Örnek veri bellekte durduğu için eklenen ilan uygulama yeniden başlayana
+        // kadar yaşar (kalıcı değil). Faz 2'de burası _context.Listings.Add + SaveChangesAsync olacak.
+        // Aynı anda iki istek gelirse Id çakışmasın diye listeyi kilitliyoruz.
+        lock (_store.Listings)
+        {
+            listing.Id = _store.Listings.Count == 0 ? 1 : _store.Listings.Max(l => l.Id) + 1;
+            listing.CreatedAt = DateTime.Now;
+            listing.Owner ??= _store.Users.FirstOrDefault(u => u.Id == listing.OwnerId);
+            _store.Listings.Add(listing);
+        }
+        return Task.FromResult(listing);
+    }
+
     public Task<IReadOnlyList<string>> GetCourseCodesAsync()
     {
         IReadOnlyList<string> result = _store.Listings

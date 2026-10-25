@@ -12,6 +12,7 @@ public class AppUser : BaseEntity
     public string Department { get; set; } = string.Empty;   // Bölüm
     public int Grade { get; set; }                            // Sınıf (1-4)
     public string? PhotoUrl { get; set; }
+    public string? Bio { get; set; }                         // Hakkımda
     public string Role { get; set; } = Enums.Roles.Student;
 
     /// <summary>

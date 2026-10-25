@@ -1,0 +1,102 @@
+@*
+    MARKET – İLAN VER
+    Bu formdaki TÜM form elemanları HtmlHelper'larla üretilir (tag helper değil):
+      Html.BeginForm, Html.AntiForgeryToken, Html.ValidationSummary,
+      Html.LabelFor, Html.TextBoxFor, Html.TextAreaFor, Html.RadioButtonFor,
+      Html.DropDownListFor, Html.ValidationMessageFor
+    Kaydedilen ilan; Market listesinde, ilan detayında, ana sayfadaki "Son eklenen ilanlar"da,
+    Profil sayfasında, "Kampüste yeni ilanlar" ViewComponent'inde ve bildirim zilinde görünür.
+*@
+@model ListingCreateViewModel
+@{
+    ViewData["Title"] = "İlan Ver";
+}
+
+@* ===== [PARTIAL VIEW] _PageHeader → sayfa başlığı; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_PageHeader.cshtml) ===== *@
+<partial name="_PageHeader" model='new PageHeaderViewModel { Title = "İlan Ver", Subtitle = "Ders notunu ödünç ver, kullanmadığın eşyayı sat ya da açık artırmaya çıkar.", Icon = "bi-plus-circle", ModuleName = "Market" }' />
+
+<section class="kv-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                @using (Html.BeginForm("Create", "Listings", new { area = "Market" }, FormMethod.Post, false, new { @class = "kv-panel kv-listing-form", novalidate = "novalidate" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger small" })
+
+                    <!-- İlan türü: her enum değeri için bir radio button -->
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Type, new { @class = "form-label" })
+                        <div class="kv-type-picker">
+                            @foreach (var t in Enum.GetValues<ListingType>())
+                            {
+                                <label class="kv-type-option">
+                                    @Html.RadioButtonFor(m => m.Type, t, new { id = $"Type_{t}" })
+                                    <span><i class="bi @t.ToIcon()"></i> @t.ToDisplay()</span>
+                                </label>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Title, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "Ör. Veri Tabanı ders notları", maxlength = "80" })
+                        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger small" })
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Description, new { @class = "form-label" })
+                        @Html.TextAreaFor(m => m.Description, 4, 0, new { @class = "form-control", placeholder = "Ürünün durumu, teslim şekli, hangi derste işe yarar...", maxlength = "500" })
+                        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger small" })
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-sm-6">
+                            @Html.LabelFor(m => m.Category, new { @class = "form-label" })
+                            @Html.DropDownListFor(m => m.Category, ListingCreateViewModel.CategoryOptions, new { @class = "form-select" })
+                        </div>
+                        <div class="col-sm-6">
+                            @Html.LabelFor(m => m.Condition, new { @class = "form-label" })
+                            @Html.DropDownListFor(m => m.Condition, ListingCreateViewModel.ConditionOptions, new { @class = "form-select" })
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-sm-6">
+                            @Html.LabelFor(m => m.CourseCode, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.CourseCode, new { @class = "form-control", placeholder = "Ör. YZM 3215" })
+                            @Html.ValidationMessageFor(m => m.CourseCode, "", new { @class = "text-danger small" })
+                        </div>
+                        <div class="col-sm-6" id="priceGroup">
+                            @Html.LabelFor(m => m.Price, new { @class = "form-label" })
+                            @Html.TextBoxFor(m => m.Price, new { @class = "form-control", type = "number", min = "1", step = "1", placeholder = "Ödünçte boş bırak" })
+                            @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger small" })
+                            <small class="kv-muted d-block mt-1">Açık artırmada başlangıç fiyatıdır; artırma 3 gün sürer.</small>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 justify-content-end">
+                        @Html.ActionLink("Vazgeç", "Index", "Listings", new { area = "Market" }, new { @class = "btn kv-btn-outline" })
+                        <button type="submit" class="btn kv-btn-primary"><i class="bi bi-send"></i> İlanı Yayınla</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        // Ödünç seçilince fiyat alanını gizle (ödünç ilanlar ücretsizdir)
+        (function () {
+            const group = document.getElementById('priceGroup');
+            const radios = document.querySelectorAll('input[name="Type"]');
+            const sync = () => {
+                const lend = document.getElementById('Type_Lend').checked;
+                group.classList.toggle('d-none', lend);
+            };
+            radios.forEach(r => r.addEventListener('change', sync));
+            sync();
+        })();
+    </script>
+}

@@ -540,3 +540,47 @@ a { color: inherit; }
     .kv-footer-links { justify-content: flex-start; }
     .kv-panel { padding: 1.15rem; }
 }
+
+/* ---------- HtmlHelper doğrulama sınıfları ----------
+   Html.TextBoxFor vb. hatalı alana "input-validation-error" sınıfını ekler. */
+.input-validation-error { border-color: var(--kv-danger) !important; }
+.input-validation-error:focus { box-shadow: 0 0 0 .2rem rgba(217, 83, 79, .2) !important; }
+.validation-summary-errors ul { padding-left: 1rem; margin-bottom: .75rem; }
+.validation-summary-valid { display: none; }
+
+/* ---------- "Kampüste yeni ilanlar" ViewComponent'i ---------- */
+.kv-mini-listings h2 { display: flex; align-items: center; gap: .4rem; }
+.kv-mini-listings h2 i { color: var(--kv-honey-dark); }
+.kv-mini-listing {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .55rem .4rem;
+    border-radius: var(--kv-radius-sm);
+    color: var(--kv-text);
+    text-decoration: none;
+    transition: background var(--kv-transition);
+}
+.kv-mini-listing:hover { background: var(--kv-honey-soft); color: var(--kv-text); }
+.kv-mini-listing + .kv-mini-listing { border-top: 1px dashed var(--kv-border); }
+.kv-mini-listing-icon {
+    flex: 0 0 38px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    background: var(--kv-honey-light);
+    clip-path: var(--kv-hex-pointy);
+    color: var(--kv-dark);
+}
+.kv-mini-listing-body { min-width: 0; display: flex; flex-direction: column; }
+.kv-mini-listing-body strong { font-size: .88rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kv-mini-listing-body small { color: var(--kv-muted); font-size: .76rem; }
+.kv-mini-listing-new {
+    font-size: .65rem;
+    font-weight: 700;
+    background: var(--kv-honey);
+    color: var(--kv-dark);
+    border-radius: 6px;
+    padding: .05rem .35rem;
+    margin-left: .3rem;
+}

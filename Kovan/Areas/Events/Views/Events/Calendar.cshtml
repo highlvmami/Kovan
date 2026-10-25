@@ -9,6 +9,7 @@
     var dayNames = new[] { "Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz" };
 }
 
+@* ===== [PARTIAL VIEW] _PageHeader → sayfa başlığı; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_PageHeader.cshtml) ===== *@
 <partial name="_PageHeader" model='new PageHeaderViewModel { Title = "Etkinlik Takvimi", Subtitle = "Ay ay tüm kampüs etkinlikleri.", Icon = "bi-calendar3", ModuleName = "Etkinlikler" }' />
 
 <section class="kv-section">

@@ -25,6 +25,11 @@
                     }
                     <a class="kv-link mt-2" asp-action="Index"><i class="bi bi-arrow-left"></i> Tüm odalar</a>
                 </div>
+                @* ViewComponent: Market'teki son ilanlar *@
+                <div class="mt-4">
+                    @* ===== [VIEW COMPONENT] LatestListings → "Kampüste yeni ilanlar"; veriyi IListingService'ten kendisi çeker (ViewComponents/LatestListingsViewComponent.cs) ===== *@
+                    @await Component.InvokeAsync("LatestListings", new { count = 3 })
+                </div>
             </aside>
 
             <!-- Sağ: sohbet penceresi -->
