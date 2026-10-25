@@ -28,3 +28,5 @@
 @media (max-width: 575.98px) {
     .kv-trust-row { grid-template-columns: 110px 1fr 34px; gap: .6rem; }
 }
+
+.kv-profile-bio { font-size: .9rem; color: var(--kv-muted); font-style: italic; }

@@ -15,6 +15,7 @@ public class ProfileViewModel
     public string Role { get; set; } = string.Empty;
     public double TrustScore { get; set; }
     public int RatingCount { get; set; }
+    public string? Bio { get; set; }
 
     /// <summary>Güven puanının modüllere göre dağılımı (Faz 5'te gerçek veriden gelecek).</summary>
     public List<(string Module, string Icon, double Score)> TrustBreakdown { get; set; } = new();
@@ -34,7 +35,8 @@ public class ProfileViewModel
         Grade = u.Grade,
         Role = u.Role,
         TrustScore = u.TrustScore,
-        RatingCount = u.RatingCount
+        RatingCount = u.RatingCount,
+        Bio = u.Bio
     };
 }
 
@@ -53,7 +55,7 @@ public class ProfileEditViewModel
     [Display(Name = "Sınıf")]
     public int Grade { get; set; }
 
-    [StringLength(200)]
+    [StringLength(200, ErrorMessage = "Hakkımda en fazla 200 karakter olabilir.")]
     [Display(Name = "Hakkımda")]
     public string? Bio { get; set; }
 }

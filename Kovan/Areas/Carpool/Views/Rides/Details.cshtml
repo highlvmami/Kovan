@@ -59,6 +59,10 @@
                         <span class="kv-trust ms-auto"><i class="bi bi-star-fill"></i> @Model.Card.DriverTrust.ToString("0.0")</span>
                     </div>
                 </div>
+                @* ViewComponent: Market'teki son ilanlar (veriyi kendisi çeker) *@
+                <div class="mt-4">
+                    @await Component.InvokeAsync("LatestListings", new { count = 4 })
+                </div>
             </div>
         </div>
     </div>

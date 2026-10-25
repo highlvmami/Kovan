@@ -22,4 +22,11 @@ public interface IListingService
     Task<Listing?> GetByIdAsync(int id);
     Task<IReadOnlyList<Listing>> GetLatestAsync(int count);
     Task<IReadOnlyList<string>> GetCourseCodesAsync();
+
+    /// <summary>
+    /// Yeni ilan ekler ve Id'si atanmış ilanı döndürür.
+    /// Market/Listings/Create formundan gelen veri buradan geçer; eklenen ilan
+    /// Market listesi, ana sayfa, profil ve "Son ilanlar" ViewComponent'inde görünür.
+    /// </summary>
+    Task<Listing> AddAsync(Listing listing);
 }

@@ -46,19 +46,22 @@ public class ProfileController : Controller
     public async Task<IActionResult> Edit()
     {
         var user = await _users.GetCurrentUserAsync();
-        var model = new ProfileEditViewModel { FullName = user.FullName, Department = user.Department, Grade = user.Grade };
+        var model = new ProfileEditViewModel { FullName = user.FullName, Department = user.Department, Grade = user.Grade, Bio = user.Bio };
         return View(model);
     }
 
     // POST: /Profile/Edit
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(ProfileEditViewModel model)
+    public async Task<IActionResult> Edit(ProfileEditViewModel model)
     {
         if (!ModelState.IsValid) return View(model);
 
-        // TODO (Faz 3): _users.UpdateProfileAsync(model)
-        TempData["Info"] = "Profil kaydetme Faz 3'te veritabanına bağlanacak.";
+        var user = await _users.GetCurrentUserAsync();
+        await _users.UpdateProfileAsync(user.Id, model.FullName, model.Department, model.Grade, model.Bio);
+
+        // Yeni bilgiler profil sayfasında, navbar avatarında ve ilan kartlarında görünür.
+        TempData["Info"] = "Profilin güncellendi.";
         return RedirectToAction(nameof(Index));
     }
 }

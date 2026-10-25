@@ -12,4 +12,7 @@ public interface IUserService
     Task<AppUser> GetCurrentUserAsync();
     Task<AppUser?> GetByIdAsync(int id);
     Task<IReadOnlyList<AppUser>> GetAllAsync();
+
+    /// <summary>Giriş yapmış kullanıcının profil bilgilerini günceller (Profile/Edit formu).</summary>
+    Task UpdateProfileAsync(int userId, string fullName, string department, int grade, string? bio);
 }

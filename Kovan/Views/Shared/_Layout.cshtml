@@ -8,7 +8,11 @@
     - Footer
     ============================================================
 *@
+@inject Kovan.Core.Interfaces.IUserService UserService
 @{
+    // Navbar avatarı: profil düzenlenince baş harfler de değişir.
+    var currentUser = await UserService.GetCurrentUserAsync();
+
     // Area'ların _ViewStart dosyası ViewData["Module"] değerini doldurur (ör. "market").
     var module = ViewData["Module"] as string;
     var title = ViewData["Title"] as string;
@@ -63,7 +67,7 @@
                 <div class="dropdown">
                     <button class="btn kv-avatar-btn" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Hesap menüsü">
                         @* Faz 2: baş harfler User.Identity üzerinden gelecek *@
-                        <span class="kv-avatar kv-avatar-sm">DA</span>
+                        <span class="kv-avatar kv-avatar-sm">@currentUser.Initials</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end kv-dropdown">
                         <li><a class="dropdown-item" asp-area="" asp-controller="Profile" asp-action="Index"><i class="bi bi-person"></i> Profilim</a></li>

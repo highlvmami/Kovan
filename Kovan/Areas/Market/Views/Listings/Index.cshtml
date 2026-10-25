@@ -69,7 +69,7 @@
             <div class="col-lg-9">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <p class="mb-0 kv-muted"><strong>@Model.Listings.Count</strong> ilan bulundu</p>
-                    <button class="btn kv-btn-primary btn-sm" disabled title="Faz 3'te aktif olacak"><i class="bi bi-plus-lg"></i> İlan Ver</button>
+                    <a class="btn kv-btn-primary btn-sm" asp-action="Create"><i class="bi bi-plus-lg"></i> İlan Ver</a>
                 </div>
 
                 @if (Model.Listings.Any())

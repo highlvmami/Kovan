@@ -65,6 +65,10 @@
                         <span><strong>@Model.OrganizerName</strong><small class="d-block kv-muted">Organizatör</small></span>
                     </div>
                 </div>
+                @* ViewComponent: Market'teki son ilanlar (veriyi kendisi çeker) *@
+                <div class="mt-4">
+                    @await Component.InvokeAsync("LatestListings", new { count = 4 })
+                </div>
             </div>
         </div>
     </div>

@@ -21,4 +21,19 @@ public class SampleUserService : IUserService
 
     public Task<IReadOnlyList<AppUser>> GetAllAsync() =>
         Task.FromResult<IReadOnlyList<AppUser>>(_store.Users);
+
+    public Task UpdateProfileAsync(int userId, string fullName, string department, int grade, string? bio)
+    {
+        // Bellekteki kullanıcı nesnesi değiştiği için yeni ad; profil, ilan kartları
+        // ve ilan detayında hemen görünür. Faz 2'de UserManager.UpdateAsync olacak.
+        var user = _store.Users.FirstOrDefault(u => u.Id == userId);
+        if (user is not null)
+        {
+            user.FullName = fullName.Trim();
+            user.Department = department;
+            user.Grade = grade;
+            user.Bio = string.IsNullOrWhiteSpace(bio) ? null : bio.Trim();
+        }
+        return Task.CompletedTask;
+    }
 }
