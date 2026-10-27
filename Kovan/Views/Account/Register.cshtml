@@ -1,3 +1,4 @@
+@* ===== [VIEW] Kayıt formu · Controller: AccountController → Register() · Adres: /Account/Register ===== *@
 @* KAYIT SAYFASI – Data Annotation doğrulamaları RegisterViewModel'de tanımlı *@
 @model RegisterViewModel
 @{
@@ -43,6 +44,7 @@
                             @* Bölüm listesi ViewModel'deki statik diziden @foreach ile üretilir *@
                             <select asp-for="Department" class="form-select">
                                 <option value="">Seçiniz</option>
+                                @* [RAZOR] @foreach → RegisterViewModel.Departments içindeki her öğe (d) için aşağıdaki HTML tekrar üretilir *@
                                 @foreach (var d in RegisterViewModel.Departments)
                                 {
                                     <option value="@d">@d</option>

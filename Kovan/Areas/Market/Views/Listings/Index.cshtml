@@ -1,3 +1,4 @@
+@* ===== [VIEW] Market ilan listesi · Controller: ListingsController → Index() · Adres: /Market ===== *@
 @*
     MARKET – İLAN LİSTESİ
     Dinamik alanlar:
@@ -20,6 +21,7 @@
         <!-- Tür sekmeleri -->
         <div class="kv-tabs mb-4">
             <a class="kv-tab @(Model.Type == null ? "active" : "")" asp-action="Index" asp-route-category="@Model.Category" asp-route-courseCode="@Model.CourseCode">Tümü</a>
+            @* [RAZOR] @foreach → Enum.GetValues<ListingType>() içindeki her öğe (t) için aşağıdaki HTML tekrar üretilir *@
             @foreach (var t in Enum.GetValues<ListingType>())
             {
                 <a class="kv-tab @(Model.Type == t ? "active" : "")" asp-action="Index" asp-route-type="@t" asp-route-category="@Model.Category" asp-route-courseCode="@Model.CourseCode">
@@ -43,6 +45,7 @@
                     <label class="form-label">Kategori</label>
                     <div class="kv-radio-list mb-3">
                         <label><input type="radio" name="category" value="" checked="@(Model.Category == null)" data-autosubmit /> Tümü</label>
+                        @* [RAZOR] @foreach → Enum.GetValues<ListingCategory>() içindeki her öğe (c) için aşağıdaki HTML tekrar üretilir *@
                         @foreach (var c in Enum.GetValues<ListingCategory>())
                         {
                             <label><input type="radio" name="category" value="@c" checked="@(Model.Category == c)" data-autosubmit /> <i class="bi @c.ToIcon()"></i> @c.ToDisplay()</label>
@@ -52,6 +55,7 @@
                     <label class="form-label" for="courseCode">Ders kodu</label>
                     <select id="courseCode" name="courseCode" class="form-select mb-3" data-autosubmit>
                         <option value="">Tüm dersler</option>
+                        @* [RAZOR] @foreach → Model.CourseCodes içindeki her öğe (code) için aşağıdaki HTML tekrar üretilir *@
                         @foreach (var code in Model.CourseCodes)
                         {
                             <option value="@code" selected="@(code == Model.CourseCode)">@code</option>
@@ -76,6 +80,7 @@
                 @if (Model.Listings.Any())
                 {
                     <div class="row g-4">
+                        @* [RAZOR] @foreach → Model.Listings içindeki her öğe (listing) için aşağıdaki HTML tekrar üretilir *@
                         @foreach (var listing in Model.Listings)
                         {
                             <div class="col-sm-6 col-xl-4">

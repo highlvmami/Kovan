@@ -1,3 +1,4 @@
+@* ===== [VIEW] Yönetim paneli · Controller: DashboardController → Index() · Adres: /Admin ===== *@
 @* ADMIN – PANO: istatistik kartları, basit CSS çubuk grafik, son aktiviteler *@
 @model DashboardViewModel
 @{
@@ -29,6 +30,7 @@
                 <div class="kv-panel h-100">
                     <h2 class="h5 mb-4">Modüllere göre içerik</h2>
                     <div class="kv-bars">
+                        @* [RAZOR] @foreach → Model.ModuleBars içindeki her öğe (b) için aşağıdaki HTML tekrar üretilir *@
                         @foreach (var b in Model.ModuleBars)
                         {
                             <div class="kv-bar-col">
@@ -43,6 +45,7 @@
                 <div class="kv-panel h-100">
                     <h2 class="h5 mb-3">Son aktiviteler</h2>
                     <ul class="kv-timeline">
+                        @* [RAZOR] @foreach → Model.RecentActivities içindeki her öğe (a) için aşağıdaki HTML tekrar üretilir *@
                         @foreach (var a in Model.RecentActivities)
                         {
                             <li>@a</li>

@@ -1,3 +1,4 @@
+@* ===== [VIEW] Profil sayfası · Controller: ProfileController → Index() · Adres: /Profile ===== *@
 @* PROFİL: kullanıcı kartı, Güven Puanı ve kullanıcının ilanları *@
 @model ProfileViewModel
 @{
@@ -48,6 +49,7 @@
             <div class="col-lg-8">
                 <div class="kv-panel mb-4">
                     <h2 class="h5 mb-3">Modüllere göre güven puanı</h2>
+                    @* [RAZOR] @foreach → Model.TrustBreakdown içindeki her öğe (t) için aşağıdaki HTML tekrar üretilir *@
                     @foreach (var t in Model.TrustBreakdown)
                     {
                         <div class="kv-trust-row">
@@ -68,6 +70,7 @@
                 @if (Model.MyListings.Any())
                 {
                     <div class="row g-4">
+                        @* [RAZOR] @foreach → Model.MyListings içindeki her öğe (l) için aşağıdaki HTML tekrar üretilir *@
                         @foreach (var l in Model.MyListings)
                         {
                             <div class="col-sm-6">

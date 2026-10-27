@@ -1,3 +1,4 @@
+@* ===== [VIEW] Hakkında sayfası · Controller: HomeController → About() · Adres: /Home/About ===== *@
 @* HAKKINDA: Kovan fikri, mimari ve ekip *@
 @model List<TeamMemberViewModel>
 @{
@@ -35,6 +36,7 @@
                 <div class="kv-panel h-100">
                     <h2 class="h4">Ekip</h2>
                     @* Ekip listesi controller'dan model olarak geliyor *@
+                    @* [RAZOR] @foreach → Model içindeki her öğe (member) için aşağıdaki HTML tekrar üretilir *@
                     @foreach (var member in Model)
                     {
                         <div class="kv-team-row">

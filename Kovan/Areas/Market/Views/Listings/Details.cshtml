@@ -1,3 +1,4 @@
+@* ===== [VIEW] İlan detayı · Controller: ListingsController → Details(id) · Adres: /Market/Listings/Details/1 ===== *@
 @* MARKET – İLAN DETAYI: türüne göre (ödünç / satış / artırma) farklı aksiyon kutusu gösterilir *@
 @model ListingDetailsViewModel
 @{
@@ -93,6 +94,7 @@
         {
             <h2 class="h4 mt-5 mb-3">Benzer ilanlar</h2>
             <div class="row g-4">
+                @* [RAZOR] @foreach → Model.Similar içindeki her öğe (s) için aşağıdaki HTML tekrar üretilir *@
                 @foreach (var s in Model.Similar)
                 {
                     @* ===== [PARTIAL VIEW] _ListingCard → ilan kartı; veriyi bu sayfa model="..." ile verir (Views/Shared/Partials/_ListingCard.cshtml) ===== *@

@@ -1,3 +1,4 @@
+@* ===== [VIEW] Yolculuk arama · Controller: RidesController → Index() · Adres: /Carpool ===== *@
 @* CARPOOL – YOLCULUK ARAMA: kalkış/varış listeleri servisten, sonuçlar @foreach ile *@
 @model RideIndexViewModel
 @{
@@ -16,6 +17,7 @@
                     <label class="form-label" for="from"><i class="bi bi-geo-alt"></i> Nereden</label>
                     <select id="from" name="from" class="form-select">
                         <option value="">Fark etmez</option>
+                        @* [RAZOR] @foreach → Model.Places içindeki her öğe (p) için aşağıdaki HTML tekrar üretilir *@
                         @foreach (var p in Model.Places)
                         {
                             <option value="@p" selected="@(p == Model.From)">@p</option>
@@ -26,6 +28,7 @@
                     <label class="form-label" for="to"><i class="bi bi-flag"></i> Nereye</label>
                     <select id="to" name="to" class="form-select">
                         <option value="">Fark etmez</option>
+                        @* [RAZOR] @foreach → Model.Places içindeki her öğe (p) için aşağıdaki HTML tekrar üretilir *@
                         @foreach (var p in Model.Places)
                         {
                             <option value="@p" selected="@(p == Model.To)">@p</option>
@@ -50,6 +53,7 @@
         @if (Model.Rides.Any())
         {
             <div class="kv-ride-list">
+                @* [RAZOR] @foreach → Model.Rides içindeki her öğe (r) için aşağıdaki HTML tekrar üretilir *@
                 @foreach (var r in Model.Rides)
                 {
                     <a class="kv-card kv-ride-card @(r.IsFull ? "full" : "")" asp-action="Details" asp-route-id="@r.Id">

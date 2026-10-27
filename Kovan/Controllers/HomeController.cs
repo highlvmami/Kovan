@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Kovan.Controllers;
 
+// ===== [CONTROLLER] HomeController · Adres: / · View'ları: Index, About, StatusCode, Error (Views/Home/) =====
 /// <summary>
 /// Genel sayfalar: Ana sayfa (petek modüller), Hakkında, Hata ve 404 sayfaları.
 /// Controller İNCE tutulur: veriyi servislerden alır, ViewModel'e koyar, View'a verir.
@@ -26,6 +27,7 @@ public class HomeController : Controller
     }
 
     // GET: /
+    // [CONTROLLER → VIEW] Index() action'ı → Views/Home/Index.cshtml sayfasını döndürür
     public async Task<IActionResult> Index()
     {
         var user = await _users.GetCurrentUserAsync();
@@ -56,6 +58,7 @@ public class HomeController : Controller
     }
 
     // GET: /Home/About
+    // [CONTROLLER → VIEW] About() action'ı → Views/Home/About.cshtml sayfasını döndürür
     public IActionResult About()
     {
         var team = new List<TeamMemberViewModel>
@@ -69,6 +72,7 @@ public class HomeController : Controller
 
     // GET: /Home/StatusCode?code=404 → Program.cs'deki UseStatusCodePagesWithReExecute buraya yönlendirir.
     [Route("Home/StatusCode")]
+    // [CONTROLLER → VIEW] StatusCodePage() action'ı → Views/Home/StatusCode.cshtml sayfasını döndürür
     public IActionResult StatusCodePage(int code)
     {
         var model = new ErrorViewModel
@@ -84,6 +88,7 @@ public class HomeController : Controller
 
     // GET: /Home/Error → Üretim ortamında yakalanmayan hatalar buraya düşer.
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    // [CONTROLLER → VIEW] Error() action'ı → Views/Shared/Error.cshtml sayfasını döndürür
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, StatusCode = 500 });

@@ -36,3 +36,14 @@ profil sayfasında, navbar avatarında ve ilan kartlarında görünür.
 
 > Not: Veritabanı Faz 2'de geleceği için veri şimdilik bellekte tutulur; uygulama yeniden
 > başlayınca (Render'da uykudan uyanınca) eklenen ilanlar silinir.
+
+## Kodda işaretler (VS Code → Ctrl+Shift+F)
+
+| Ara | Ne bulursun? |
+|---|---|
+| `[CONTROLLER]` | 8 controller, adresleri ve hangi action'ın hangi View'ı döndürdüğü |
+| `[VIEW]` | Her sayfanın en üstünde: hangi controller'dan geldiği ve adresi |
+| `[RAZOR]` | `@foreach` döngüleri ve ilan kartındaki `@if` / `@Model` örnekleri |
+| `[PARTIAL VIEW]` | 4 partial'ın tanımı ve kullanıldığı yerler |
+| `[VIEW COMPONENT]` | 2 ViewComponent'in tanımı ve kullanıldığı yerler |
+| `[HTML HELPER]` | İlan Ver ve Profili Düzenle formlarındaki her HtmlHelper ve ürettiği HTML |

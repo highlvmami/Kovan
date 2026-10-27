@@ -1,3 +1,4 @@
+@* ===== [VIEW] Ana sayfa · Controller: HomeController → Index() · Adres: / ===== *@
 @*
     ANA SAYFA
     - Karşılama (hero) bölümü
@@ -42,6 +43,7 @@
             <!-- Petek ızgarası: her modül bir altıgen -->
             <div class="col-lg-7">
                 <div class="kv-honeycomb">
+                    @* [RAZOR] @foreach → Model.Modules içindeki her öğe (m) için aşağıdaki HTML tekrar üretilir *@
                     @foreach (var m in Model.Modules)
                     {
                         <a class="kv-hex @m.ColorClass" asp-area="@m.Area" asp-controller="@m.Controller" asp-action="Index">
@@ -73,6 +75,7 @@
             <a class="kv-link" asp-area="Market" asp-controller="Listings" asp-action="Index">Tümünü gör <i class="bi bi-arrow-right"></i></a>
         </div>
         <div class="row g-4">
+            @* [RAZOR] @foreach → Model.LatestListings içindeki her öğe (listing) için aşağıdaki HTML tekrar üretilir *@
             @foreach (var listing in Model.LatestListings)
             {
                 <div class="col-sm-6 col-lg-3">
@@ -95,6 +98,7 @@
             <a class="kv-link" asp-area="Events" asp-controller="Events" asp-action="Index">Tümünü gör <i class="bi bi-arrow-right"></i></a>
         </div>
         <div class="row g-4">
+            @* [RAZOR] @foreach → Model.UpcomingEvents içindeki her öğe (ev) için aşağıdaki HTML tekrar üretilir *@
             @foreach (var ev in Model.UpcomingEvents)
             {
                 <div class="col-md-6 col-lg-4">

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Kovan.Controllers;
 
+// ===== [CONTROLLER] ProfileController · Adres: /Profile · View'ları: Index, Edit (Views/Profile/) =====
 /// <summary>Kullanıcı profili ve Güven Puanı sayfaları.</summary>
 public class ProfileController : Controller
 {
@@ -17,6 +18,7 @@ public class ProfileController : Controller
     }
 
     // GET: /Profile  veya  /Profile/Index/3 (başka bir kullanıcının profili)
+    // [CONTROLLER → VIEW] Index() action'ı → Views/Profile/Index.cshtml sayfasını döndürür
     public async Task<IActionResult> Index(int? id)
     {
         var user = id.HasValue ? await _users.GetByIdAsync(id.Value) : await _users.GetCurrentUserAsync();
@@ -43,6 +45,7 @@ public class ProfileController : Controller
 
     // GET: /Profile/Edit
     [HttpGet]
+    // [CONTROLLER → VIEW] Edit() action'ı → Views/Profile/Edit.cshtml sayfasını döndürür
     public async Task<IActionResult> Edit()
     {
         var user = await _users.GetCurrentUserAsync();

@@ -5,6 +5,7 @@
 
 <div class="kv-panel kv-mini-listings">
     <h2 class="h6 mb-2"><i class="bi bi-shop"></i> Kampüste yeni ilanlar</h2>
+    @* [RAZOR] @foreach → Model içindeki her öğe (l) için aşağıdaki HTML tekrar üretilir *@
     @foreach (var l in Model)
     {
         <a class="kv-mini-listing" asp-area="Market" asp-controller="Listings" asp-action="Details" asp-route-id="@l.Id">

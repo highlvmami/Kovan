@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Kovan.Areas.Topics.Controllers;
 
+// ===== [CONTROLLER] RoomsController · Adres: /Topics · View'ları: Index, Room (Areas/Topics/Views/Rooms/) =====
 /// <summary>
 /// TOPICS MODÜLÜ – Konu bazlı sohbet odaları.
 /// Faz 4'te mesaj gönderme SignalR (ChatHub) ile gerçek zamanlı olacak.
@@ -21,6 +22,7 @@ public class RoomsController : Controller
     }
 
     // GET: /Topics  veya  /Topics?tag=Ders
+    // [CONTROLLER → VIEW] Index() action'ı → Areas/Topics/Views/Rooms/Index.cshtml sayfasını döndürür
     public async Task<IActionResult> Index(string? tag)
     {
         var all = await _topics.GetRoomsAsync();
@@ -36,6 +38,7 @@ public class RoomsController : Controller
     }
 
     // GET: /Topics/Rooms/Room/1
+    // [CONTROLLER → VIEW] Room() action'ı → Areas/Topics/Views/Rooms/Room.cshtml sayfasını döndürür
     public async Task<IActionResult> Room(int id)
     {
         var room = await _topics.GetRoomAsync(id);

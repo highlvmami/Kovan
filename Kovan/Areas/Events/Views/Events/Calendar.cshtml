@@ -1,3 +1,4 @@
+@* ===== [VIEW] Etkinlik takvimi · Controller: EventsController → Calendar() · Adres: /Events/Events/Calendar ===== *@
 @*
     EVENTS – TAKVİM GÖRÜNÜMÜ
     42 hücrelik (6 hafta) ay ızgarası CalendarViewModel.Build ile hazırlanır,
@@ -22,14 +23,17 @@
             </div>
 
             <div class="kv-calendar">
+                @* [RAZOR] @foreach → dayNames içindeki her öğe (name) için aşağıdaki HTML tekrar üretilir *@
                 @foreach (var name in dayNames)
                 {
                     <div class="kv-cal-dayname">@name</div>
                 }
+                @* [RAZOR] @foreach → Model.Days içindeki her öğe (day) için aşağıdaki HTML tekrar üretilir *@
                 @foreach (var day in Model.Days)
                 {
                     <div class="kv-cal-day @(day.IsCurrentMonth ? "" : "other") @(day.IsToday ? "today" : "") @(day.Events.Any() ? "has-events" : "")">
                         <span class="kv-cal-num">@day.Date.Day <span class="kv-cal-mobile-date">@day.Date.ToString("MMMM ddd", DisplayHelpers.Tr)</span></span>
+                        @* [RAZOR] @foreach → day.Events içindeki her öğe (e) için aşağıdaki HTML tekrar üretilir *@
                         @foreach (var e in day.Events)
                         {
                             <a class="kv-cal-event" asp-action="Details" asp-route-id="@e.Id" title="@e.Title">
