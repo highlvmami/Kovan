@@ -1,3 +1,4 @@
+@* ===== [VIEW] Kullanıcı listesi · Controller: DashboardController → Users() · Adres: /Admin/Dashboard/Users ===== *@
 @* ADMIN – KULLANICILAR: responsive tablo (mobilde kart görünümü) *@
 @model List<AdminUserRowViewModel>
 @{
@@ -26,6 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @* [RAZOR] @foreach → Model içindeki her öğe (u) için aşağıdaki HTML tekrar üretilir *@
                     @foreach (var u in Model)
                     {
                         <tr>

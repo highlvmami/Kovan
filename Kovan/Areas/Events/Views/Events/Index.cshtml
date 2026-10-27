@@ -1,3 +1,4 @@
+@* ===== [VIEW] Etkinlik listesi · Controller: EventsController → Index() · Adres: /Events ===== *@
 @* EVENTS – ETKİNLİK LİSTESİ: kategori sekmeleri Enum'dan, kartlar Model.Events'ten @foreach ile *@
 @model EventIndexViewModel
 @{
@@ -12,6 +13,7 @@
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
             <div class="kv-tabs">
                 <a class="kv-tab @(Model.SelectedCategory == null ? "active" : "")" asp-action="Index">Tümü</a>
+                @* [RAZOR] @foreach → Enum.GetValues<EventCategory>() içindeki her öğe (c) için aşağıdaki HTML tekrar üretilir *@
                 @foreach (var c in Enum.GetValues<EventCategory>())
                 {
                     <a class="kv-tab @(Model.SelectedCategory == c ? "active" : "")" asp-action="Index" asp-route-category="@c">
@@ -28,6 +30,7 @@
         @if (Model.Events.Any())
         {
             <div class="row g-4">
+                @* [RAZOR] @foreach → Model.Events içindeki her öğe (ev) için aşağıdaki HTML tekrar üretilir *@
                 @foreach (var ev in Model.Events)
                 {
                     <div class="col-md-6 col-lg-4">

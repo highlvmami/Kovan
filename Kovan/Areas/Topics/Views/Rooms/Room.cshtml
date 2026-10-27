@@ -1,3 +1,4 @@
+@* ===== [VIEW] Sohbet odası · Controller: RoomsController → Room(id) · Adres: /Topics/Rooms/Room/1 ===== *@
 @*
     TOPICS – SOHBET ODASI
     Mesajlar şimdilik servisten gelen örnek veridir.
@@ -15,6 +16,7 @@
             <aside class="col-lg-3 d-none d-lg-block">
                 <div class="kv-panel kv-room-list">
                     <h2 class="h6 mb-3">Diğer odalar</h2>
+                    @* [RAZOR] @foreach → Model.OtherRooms içindeki her öğe (r) için aşağıdaki HTML tekrar üretilir *@
                     @foreach (var r in Model.OtherRooms)
                     {
                         <a asp-action="Room" asp-route-id="@r.Id">
@@ -46,6 +48,7 @@
                     </header>
 
                     <div class="kv-chat-body" id="chatBody">
+                        @* [RAZOR] @foreach → Model.Messages içindeki her öğe (m) için aşağıdaki HTML tekrar üretilir *@
                         @foreach (var m in Model.Messages)
                         {
                             <div class="kv-msg @(m.IsMine ? "mine" : "")">

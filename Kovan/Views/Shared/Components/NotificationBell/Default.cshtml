@@ -16,6 +16,7 @@
             <strong>Bildirimler</strong>
             <span class="small">@Model.UnreadCount okunmamış</span>
         </div>
+        @* [RAZOR] @foreach → Model.Items içindeki her öğe (n) için aşağıdaki HTML tekrar üretilir *@
         @foreach (var n in Model.Items)
         {
             <a class="kv-notification @(n.IsRead ? "" : "unread")" href="@(n.Url ?? "#")">

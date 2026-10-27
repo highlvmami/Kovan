@@ -7,6 +7,7 @@
     <div class="kv-listing-thumb">
         <i class="bi @Model.CategoryIcon"></i>
         <span class="kv-badge @Model.TypeBadgeClass"><i class="bi @Model.TypeIcon"></i> @Model.TypeText</span>
+        @* [RAZOR] @if → sadece açık artırma ilanlarında kalan süre gösterilir *@
         @if (Model.AuctionRemaining != null)
         {
             <span class="kv-timer"><i class="bi bi-clock"></i> @Model.AuctionRemaining</span>
@@ -15,11 +16,13 @@
     <div class="kv-card-body">
         <div class="kv-card-meta">
             <span><i class="bi @Model.CategoryIcon"></i> @Model.CategoryText</span>
+            @* [RAZOR] @if → ders kodu girildiyse rozet gösterilir *@
             @if (!string.IsNullOrEmpty(Model.CourseCode))
             {
                 <span class="kv-chip">@Model.CourseCode</span>
             }
         </div>
+        @* [RAZOR] @Model.Title → ViewModel'deki değer doğrudan HTML'e yazılır *@
         <h3 class="kv-card-title">@Model.Title</h3>
         <div class="kv-card-footer">
             <strong class="kv-price">@Model.PriceText</strong>

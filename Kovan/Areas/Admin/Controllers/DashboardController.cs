@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Kovan.Areas.Admin.Controllers;
 
+// ===== [CONTROLLER] DashboardController · Adres: /Admin · View'ları: Index, Users (Areas/Admin/Views/Dashboard/) =====
 /// <summary>
 /// ADMIN MODÜLÜ – Yönetim paneli.
 /// Faz 2'de [Authorize(Roles = Roles.Admin)] eklenerek sadece Admin rolüne açılacak.
@@ -21,6 +22,7 @@ public class DashboardController : Controller
     }
 
     // GET: /Admin
+    // [CONTROLLER → VIEW] Index() action'ı → Areas/Admin/Views/Dashboard/Index.cshtml sayfasını döndürür
     public async Task<IActionResult> Index()
     {
         var stats = await _stats.GetStatsAsync();
@@ -46,6 +48,7 @@ public class DashboardController : Controller
     }
 
     // GET: /Admin/Dashboard/Users
+    // [CONTROLLER → VIEW] Users() action'ı → Areas/Admin/Views/Dashboard/Users.cshtml sayfasını döndürür
     public async Task<IActionResult> Users()
     {
         var users = await _users.GetAllAsync();

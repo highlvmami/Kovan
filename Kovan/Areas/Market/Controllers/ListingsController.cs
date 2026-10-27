@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Kovan.Areas.Market.Controllers;
 
+// ===== [CONTROLLER] ListingsController · Adres: /Market · View'ları: Index, Details, Create (Areas/Market/Views/Listings/) =====
 /// <summary>
 /// MARKET MODÜLÜ – İlanlar
 /// [Area("Market")] etiketi bu controller'ın Areas/Market klasörüne ait olduğunu söyler.
@@ -29,6 +30,7 @@ public class ListingsController : Controller
     // GET: /Market
     // GET: /Market/Listings?type=Sale&category=CourseMaterial&courseCode=YZM 3215
     // Filtre parametreleri query string'den model binding ile otomatik gelir.
+    // [CONTROLLER → VIEW] Index() action'ı → Areas/Market/Views/Listings/Index.cshtml sayfasını döndürür
     public async Task<IActionResult> Index(ListingType? type, ListingCategory? category, string? courseCode, string? search)
     {
         var items = await _listings.GetListingsAsync(new ListingFilter(type, category, courseCode, search));
@@ -46,6 +48,7 @@ public class ListingsController : Controller
     }
 
     // GET: /Market/Listings/Details/3
+    // [CONTROLLER → VIEW] Details() action'ı → Areas/Market/Views/Listings/Details.cshtml sayfasını döndürür
     public async Task<IActionResult> Details(int id)
     {
         var listing = await _listings.GetByIdAsync(id);
@@ -62,6 +65,7 @@ public class ListingsController : Controller
 
     // GET: /Market/Listings/Create  → "İlan Ver" formu (HtmlHelper'larla çizilir)
     [HttpGet]
+    // [CONTROLLER → VIEW] Create() action'ı → Areas/Market/Views/Listings/Create.cshtml sayfasını döndürür
     public IActionResult Create() => View(new ListingCreateViewModel());
 
     // POST: /Market/Listings/Create

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Kovan.Controllers;
 
+// ===== [CONTROLLER] AccountController · Adres: /Account/Login · View'ları: Login, Register (Views/Account/) =====
 /// <summary>
 /// Giriş / Kayıt sayfaları.
 /// Faz 1: Formlar ve doğrulama (validation) hazır, gerçek giriş yok.
@@ -12,6 +13,7 @@ public class AccountController : Controller
 {
     // GET: /Account/Login
     [HttpGet]
+    // [CONTROLLER → VIEW] Login() action'ı → Views/Account/Login.cshtml sayfasını döndürür
     public IActionResult Login() => View(new LoginViewModel());
 
     // POST: /Account/Login
@@ -29,6 +31,7 @@ public class AccountController : Controller
 
     // GET: /Account/Register
     [HttpGet]
+    // [CONTROLLER → VIEW] Register() action'ı → Views/Account/Register.cshtml sayfasını döndürür
     public IActionResult Register() => View(new RegisterViewModel());
 
     // POST: /Account/Register

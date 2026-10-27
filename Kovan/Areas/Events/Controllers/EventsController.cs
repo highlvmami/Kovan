@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Kovan.Areas.Events.Controllers;
 
+// ===== [CONTROLLER] EventsController · Adres: /Events · View'ları: Index, Details, Calendar (Areas/Events/Views/Events/) =====
 /// <summary>EVENTS MODÜLÜ – Etkinlik listesi, detay ve takvim görünümü.</summary>
 [Area("Events")]
 public class EventsController : Controller
@@ -15,6 +16,7 @@ public class EventsController : Controller
     public EventsController(IEventService events) => _events = events;
 
     // GET: /Events  veya  /Events?category=Technology
+    // [CONTROLLER → VIEW] Index() action'ı → Areas/Events/Views/Events/Index.cshtml sayfasını döndürür
     public async Task<IActionResult> Index(EventCategory? category)
     {
         var items = await _events.GetUpcomingAsync(category);
@@ -27,6 +29,7 @@ public class EventsController : Controller
     }
 
     // GET: /Events/Events/Details/1
+    // [CONTROLLER → VIEW] Details() action'ı → Areas/Events/Views/Events/Details.cshtml sayfasını döndürür
     public async Task<IActionResult> Details(int id)
     {
         var ev = await _events.GetByIdAsync(id);
@@ -35,6 +38,7 @@ public class EventsController : Controller
     }
 
     // GET: /Events/Events/Calendar?year=2026&month=11
+    // [CONTROLLER → VIEW] Calendar() action'ı → Areas/Events/Views/Events/Calendar.cshtml sayfasını döndürür
     public async Task<IActionResult> Calendar(int? year, int? month)
     {
         int y = year ?? DateTime.Today.Year;
